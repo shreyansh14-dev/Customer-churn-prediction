@@ -1,0 +1,224 @@
+datasets:
+  archive:
+    category: primary training
+    date_columns: []
+    domain: E-Commerce
+    entity_id: None
+    feature_count: null
+    filename: archive.zip
+    format: ZIP
+    license: Public Open Research / Kaggle / Academic Attribution
+    name: archive.zip
+    path: D:\customer churn prediction\archive.zip
+    processing_strategy: DuckDB chunked aggregation on event level to customer level
+    row_count: null
+    status: Validated
+    target: None
+    task: Conversion & Purchase Propensity
+  archive_(1):
+    category: duplicate/redundant
+    date_columns: []
+    domain: E-Commerce
+    entity_id: None
+    feature_count: null
+    filename: archive (1).zip
+    format: ZIP
+    license: Public Open Research / Kaggle / Academic Attribution
+    name: archive (1).zip
+    path: D:\customer churn prediction\archive (1).zip
+    processing_strategy: Direct read
+    row_count: null
+    status: Validated
+    target: None
+    task: Unknown
+  bank_customer_churn_prediction_challenge:
+    category: primary training
+    date_columns: []
+    domain: Banking
+    entity_id: id
+    feature_count: 14
+    filename: bank-customer-churn-prediction-challenge.zip
+    format: ZIP
+    license: Public Open Research / Kaggle / Academic Attribution
+    name: bank-customer-churn-prediction-challenge.zip
+    path: D:\customer churn prediction\bank-customer-churn-prediction-challenge.zip
+    processing_strategy: Zip-streamed CSV extraction into feature store
+    row_count: null
+    status: Validated
+    target: Exited
+    task: Binary Classification (Exited/Churn)
+  dataset:
+    category: primary training
+    date_columns:
+    - MonthlyCharges
+    domain: Telecom
+    entity_id: customerID
+    feature_count: 21
+    filename: dataset.csv
+    format: CSV
+    license: Public Open Research / Kaggle / Academic Attribution
+    name: dataset.csv
+    path: D:\customer churn prediction\dataset.csv
+    processing_strategy: Direct read
+    row_count: 7043
+    status: Validated
+    target: Churn
+    task: Binary Classification (Churn)
+  dataset_(1):
+    category: duplicate/redundant
+    date_columns:
+    - MonthlyCharges
+    domain: Telecom
+    entity_id: customerID
+    feature_count: 21
+    filename: dataset (1).csv
+    format: CSV
+    license: Public Open Research / Kaggle / Academic Attribution
+    name: dataset (1).csv
+    path: D:\customer churn prediction\dataset (1).csv
+    processing_strategy: Direct read
+    row_count: 7043
+    status: Validated
+    target: Churn
+    task: Unknown
+  home_credit_default_risk:
+    category: primary training
+    date_columns: []
+    domain: Fintech & Lending
+    entity_id: SK_ID_CURR
+    feature_count: 122
+    filename: home-credit-default-risk.zip
+    format: ZIP
+    license: Public Open Research / Kaggle / Academic Attribution
+    name: home-credit-default-risk.zip
+    path: D:\customer churn prediction\home-credit-default-risk.zip
+    processing_strategy: Relational feature aggregation from application and bureau
+      tables
+    row_count: null
+    status: Validated
+    target: TARGET
+    task: Default & Credit Risk Estimation
+  kkbox_churn_prediction_challenge:
+    category: benchmark
+    date_columns: []
+    domain: Subscription Music
+    entity_id: None
+    feature_count: null
+    filename: kkbox-churn-prediction-challenge.zip
+    format: ZIP
+    license: Public Open Research / Kaggle / Academic Attribution
+    name: kkbox-churn-prediction-challenge.zip
+    path: D:\customer churn prediction\kkbox-churn-prediction-challenge.zip
+    processing_strategy: Benchmarking & architecture reference for high-throughput
+      subscription logging
+    row_count: null
+    status: Validated
+    target: None
+    task: Subscription Renewal Failure (Churn)
+  meta:
+    category: development only
+    date_columns: []
+    domain: Metadata
+    entity_id: None
+    feature_count: 7
+    filename: meta.json
+    format: JSON
+    license: Public Open Research / Kaggle / Academic Attribution
+    name: meta.json
+    path: D:\customer churn prediction\meta.json
+    processing_strategy: Direct read
+    row_count: null
+    status: Validated
+    target: None
+    task: Unknown
+  online_retail_ii:
+    category: primary training
+    date_columns: []
+    domain: Retail E-Commerce
+    entity_id: None
+    feature_count: null
+    filename: online+retail+ii.zip
+    format: ZIP
+    license: Public Open Research / Kaggle / Academic Attribution
+    name: online+retail+ii.zip
+    path: D:\customer churn prediction\online+retail+ii.zip
+    processing_strategy: Excel sheet stream -> DuckDB Parquet conversion -> RFM &
+      K-Means
+    row_count: null
+    status: Validated
+    target: None
+    task: RFM Segmentation & Customer Lifetime Value
+  schema:
+    category: development only
+    date_columns: []
+    domain: Metadata
+    entity_id: None
+    feature_count: 1
+    filename: schema.json
+    format: JSON
+    license: Public Open Research / Kaggle / Academic Attribution
+    name: schema.json
+    path: D:\customer churn prediction\schema.json
+    processing_strategy: Direct read
+    row_count: null
+    status: Validated
+    target: None
+    task: Unknown
+  streaming_subscription_churn_model:
+    category: primary training
+    date_columns: []
+    domain: Media & Streaming
+    entity_id: customer_id
+    feature_count: 20
+    filename: streaming-subscription-churn-model.zip
+    format: ZIP
+    license: Public Open Research / Kaggle / Academic Attribution
+    name: streaming-subscription-churn-model.zip
+    path: D:\customer churn prediction\streaming-subscription-churn-model.zip
+    processing_strategy: Zip-streamed CSV extraction into feature store
+    row_count: null
+    status: Validated
+    target: churned
+    task: Binary Classification (Churn)
+  user_monthly:
+    category: primary training
+    date_columns:
+    - month
+    - tenure_month
+    - monthly_price
+    - churned_next_month
+    domain: B2B SaaS
+    entity_id: user_id
+    feature_count: 15
+    filename: user_monthly.parquet
+    format: PARQUET
+    license: Public Open Research / Kaggle / Academic Attribution
+    name: user_monthly.parquet
+    path: D:\customer churn prediction\user_monthly.parquet
+    processing_strategy: Direct read
+    row_count: 79817
+    status: Validated
+    target: churned
+    task: Temporal Activity & Churn Prediction
+  users:
+    category: primary training
+    date_columns:
+    - signup_date
+    - monthly_price
+    - sessions_per_month
+    - last_active_date
+    - churn_date
+    - tenure_months
+    domain: B2B SaaS
+    entity_id: user_id
+    feature_count: 22
+    filename: users.parquet
+    format: PARQUET
+    license: Public Open Research / Kaggle / Academic Attribution
+    name: users.parquet
+    path: D:\customer churn prediction\users.parquet
+    processing_strategy: Direct read
+    row_count: 5000
+    status: Validated
+    target: churned
+    task: Customer Intelligence & Churn

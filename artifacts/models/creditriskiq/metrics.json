@@ -1,0 +1,18 @@
+{
+  "roc_auc": 0.7392,
+  "pr_auc": 0.2117,
+  "brier_score": 0.0692,
+  "log_loss": 0.2525,
+  "precision": 0.2183,
+  "recall": 0.4683,
+  "f1": 0.2978,
+  "f2": 0.381,
+  "specificity": 0.8532,
+  "balanced_accuracy": 0.6608,
+  "confusion_matrix": {
+    "tn": 7845,
+    "fp": 1350,
+    "fn": 428,
+    "tp": 377
+  }
+}

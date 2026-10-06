@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  mlverse:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: mlverse-platform
+    ports:
+      - "8000:8000"
+    environment:
+      - APP_NAME=MLVerse
+      - APP_ENV=production
+      - API_HOST=0.0.0.0
+      - API_PORT=8000
+      - DATABASE_URL=sqlite:///./mlverse.db
+      - ARTIFACTS_DIR=./artifacts
+    volumes:
+      # Optional persistence for SQLite database and training runs
+      - ./mlverse_data:/app/database_persist
+      - ./artifacts:/app/artifacts
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3

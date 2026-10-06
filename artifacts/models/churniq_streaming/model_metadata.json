@@ -1,0 +1,45 @@
+{
+  "model_version": "v1.0.0-churniq_streaming",
+  "architecture": "xgboost",
+  "training_timestamp": "2026-10-06T20:01:04.166315",
+  "training_duration_seconds": 2.144,
+  "inference_latency_ms": 0.008,
+  "dataset_rows": 35000,
+  "train_rows": 28000,
+  "test_rows": 7000,
+  "feature_count": 30,
+  "target_column": "churn_target",
+  "selected_threshold": 0.35,
+  "test_metrics": {
+    "roc_auc": 0.8741,
+    "pr_auc": 0.885,
+    "brier_score": 0.1448,
+    "log_loss": 0.4428,
+    "precision": 0.7392,
+    "recall": 0.8864,
+    "f1": 0.8061,
+    "f2": 0.8525,
+    "specificity": 0.6701,
+    "balanced_accuracy": 0.7783,
+    "confusion_matrix": {
+      "tn": 2283,
+      "fp": 1124,
+      "fn": 408,
+      "tp": 3185
+    }
+  },
+  "candidate_comparison": {
+    "logistic_regression": {
+      "val_auc": 0.8175
+    },
+    "random_forest": {
+      "val_auc": 0.8506
+    },
+    "lightgbm": {
+      "val_auc": 0.8649
+    },
+    "xgboost": {
+      "val_auc": 0.8653
+    }
+  }
+}

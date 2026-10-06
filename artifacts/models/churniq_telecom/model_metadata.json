@@ -1,0 +1,45 @@
+{
+  "model_version": "v1.0.0-churniq_telecom",
+  "architecture": "logistic_regression",
+  "training_timestamp": "2026-10-06T20:00:18.296603",
+  "training_duration_seconds": 0.033,
+  "inference_latency_ms": 0.001,
+  "dataset_rows": 7043,
+  "train_rows": 5634,
+  "test_rows": 1409,
+  "feature_count": 27,
+  "target_column": "churn_target",
+  "selected_threshold": 0.34,
+  "test_metrics": {
+    "roc_auc": 0.8458,
+    "pr_auc": 0.6606,
+    "brier_score": 0.1355,
+    "log_loss": 0.4144,
+    "precision": 0.5624,
+    "recall": 0.7353,
+    "f1": 0.6373,
+    "f2": 0.6927,
+    "specificity": 0.7932,
+    "balanced_accuracy": 0.7643,
+    "confusion_matrix": {
+      "tn": 821,
+      "fp": 214,
+      "fn": 99,
+      "tp": 275
+    }
+  },
+  "candidate_comparison": {
+    "logistic_regression": {
+      "val_auc": 0.8389
+    },
+    "random_forest": {
+      "val_auc": 0.8333
+    },
+    "lightgbm": {
+      "val_auc": 0.8328
+    },
+    "xgboost": {
+      "val_auc": 0.8322
+    }
+  }
+}

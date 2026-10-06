@@ -1,0 +1,32 @@
+{
+  "uncalibrated_brier": 0.1926,
+  "calibrated_brier": 0.0692,
+  "uncalibrated_log_loss": 0.5717,
+  "calibrated_log_loss": 0.2525,
+  "calibration_curve": [
+    {
+      "predicted": 0.0372,
+      "actual": 0.0442
+    },
+    {
+      "predicted": 0.1438,
+      "actual": 0.1403
+    },
+    {
+      "predicted": 0.2449,
+      "actual": 0.2135
+    },
+    {
+      "predicted": 0.3376,
+      "actual": 0.2862
+    },
+    {
+      "predicted": 0.4353,
+      "actual": 0.3529
+    },
+    {
+      "predicted": 0.5091,
+      "actual": 1.0
+    }
+  ]
+}

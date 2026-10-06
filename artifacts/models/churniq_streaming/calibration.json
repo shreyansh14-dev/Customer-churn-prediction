@@ -1,0 +1,48 @@
+{
+  "uncalibrated_brier": 0.1453,
+  "calibrated_brier": 0.1448,
+  "uncalibrated_log_loss": 0.4468,
+  "calibrated_log_loss": 0.4428,
+  "calibration_curve": [
+    {
+      "predicted": 0.0675,
+      "actual": 0.0328
+    },
+    {
+      "predicted": 0.1557,
+      "actual": 0.1766
+    },
+    {
+      "predicted": 0.2549,
+      "actual": 0.3306
+    },
+    {
+      "predicted": 0.3431,
+      "actual": 0.4271
+    },
+    {
+      "predicted": 0.4591,
+      "actual": 0.5464
+    },
+    {
+      "predicted": 0.549,
+      "actual": 0.4949
+    },
+    {
+      "predicted": 0.6487,
+      "actual": 0.6266
+    },
+    {
+      "predicted": 0.7602,
+      "actual": 0.7565
+    },
+    {
+      "predicted": 0.853,
+      "actual": 0.7893
+    },
+    {
+      "predicted": 0.9426,
+      "actual": 0.9765
+    }
+  ]
+}

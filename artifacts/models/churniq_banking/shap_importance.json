@@ -1,0 +1,90 @@
+[
+  {
+    "feature": "Age",
+    "importance": 1.0355
+  },
+  {
+    "feature": "NumOfProducts",
+    "importance": 0.9763
+  },
+  {
+    "feature": "IsActiveMember",
+    "importance": 0.2644
+  },
+  {
+    "feature": "is_female",
+    "importance": 0.1821
+  },
+  {
+    "feature": "is_germany",
+    "importance": 0.1473
+  },
+  {
+    "feature": "Balance",
+    "importance": 0.0983
+  },
+  {
+    "feature": "balance_to_salary",
+    "importance": 0.0699
+  },
+  {
+    "feature": "high_value_customer",
+    "importance": 0.0653
+  },
+  {
+    "feature": "CreditScore",
+    "importance": 0.0572
+  },
+  {
+    "feature": "HasCrCard",
+    "importance": 0.0407
+  },
+  {
+    "feature": "EstimatedSalary",
+    "importance": 0.0363
+  },
+  {
+    "feature": "Tenure",
+    "importance": 0.0253
+  },
+  {
+    "feature": "is_france",
+    "importance": 0.006
+  },
+  {
+    "feature": "products_per_tenure",
+    "importance": 0.005
+  },
+  {
+    "feature": "is_spain",
+    "importance": 0.0039
+  },
+  {
+    "feature": "is_zero_balance",
+    "importance": 0.0025
+  },
+  {
+    "feature": "credit_score_tier",
+    "importance": 0.0
+  },
+  {
+    "feature": "age_over_50",
+    "importance": 0.0
+  },
+  {
+    "feature": "mrr",
+    "importance": 0.0
+  },
+  {
+    "feature": "arr",
+    "importance": 0.0
+  },
+  {
+    "feature": "customer_value",
+    "importance": 0.0
+  },
+  {
+    "feature": "payment_health",
+    "importance": 0.0
+  }
+]

@@ -1,0 +1,62 @@
+[
+  {
+    "feature": "ext_source_mean",
+    "importance": 0.1033
+  },
+  {
+    "feature": "goods_to_credit",
+    "importance": 0.0344
+  },
+  {
+    "feature": "credit_to_annuity",
+    "importance": 0.0214
+  },
+  {
+    "feature": "employed_years",
+    "importance": 0.0183
+  },
+  {
+    "feature": "age_years",
+    "importance": 0.0179
+  },
+  {
+    "feature": "AMT_CREDIT",
+    "importance": 0.0099
+  },
+  {
+    "feature": "AMT_ANNUITY",
+    "importance": 0.0099
+  },
+  {
+    "feature": "region_rating",
+    "importance": 0.0091
+  },
+  {
+    "feature": "is_cash_loan",
+    "importance": 0.009
+  },
+  {
+    "feature": "annuity_to_income",
+    "importance": 0.0067
+  },
+  {
+    "feature": "debt_to_income",
+    "importance": 0.0045
+  },
+  {
+    "feature": "AMT_INCOME_TOTAL",
+    "importance": 0.0038
+  },
+  {
+    "feature": "has_children",
+    "importance": 0.0015
+  },
+  {
+    "feature": "own_car",
+    "importance": 0.0014
+  },
+  {
+    "feature": "own_realty",
+    "importance": 0.0004
+  }
+]

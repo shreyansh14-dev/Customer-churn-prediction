@@ -1,0 +1,1422 @@
+[
+  {
+    "feature_name": "tenure",
+    "description": "Engineered tenure feature from users_and_user_monthly_parquet",
+    "source": "users_and_user_monthly_parquet",
+    "data_type": "int16",
+    "formula_logic": "Extracted / aggregated from users_and_user_monthly_parquet",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "mrr",
+    "description": "Engineered mrr feature from users_and_user_monthly_parquet",
+    "source": "users_and_user_monthly_parquet",
+    "data_type": "float32",
+    "formula_logic": "Extracted / aggregated from users_and_user_monthly_parquet",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "avg_mrr",
+    "description": "Engineered avg mrr feature from users_and_user_monthly_parquet",
+    "source": "users_and_user_monthly_parquet",
+    "data_type": "float32",
+    "formula_logic": "Extracted / aggregated from users_and_user_monthly_parquet",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "monthly_price",
+    "description": "Engineered monthly price feature from users_and_user_monthly_parquet",
+    "source": "users_and_user_monthly_parquet",
+    "data_type": "float32",
+    "formula_logic": "Extracted / aggregated from users_and_user_monthly_parquet",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "sessions_last_month",
+    "description": "Engineered sessions last month feature from users_and_user_monthly_parquet",
+    "source": "users_and_user_monthly_parquet",
+    "data_type": "int32",
+    "formula_logic": "Extracted / aggregated from users_and_user_monthly_parquet",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "sessions_mean",
+    "description": "Engineered sessions mean feature from users_and_user_monthly_parquet",
+    "source": "users_and_user_monthly_parquet",
+    "data_type": "float64",
+    "formula_logic": "Extracted / aggregated from users_and_user_monthly_parquet",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "sessions_std",
+    "description": "Engineered sessions std feature from users_and_user_monthly_parquet",
+    "source": "users_and_user_monthly_parquet",
+    "data_type": "float64",
+    "formula_logic": "Extracted / aggregated from users_and_user_monthly_parquet",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "feature_usage_score",
+    "description": "Engineered feature usage score feature from users_and_user_monthly_parquet",
+    "source": "users_and_user_monthly_parquet",
+    "data_type": "float32",
+    "formula_logic": "Extracted / aggregated from users_and_user_monthly_parquet",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "feature_usage_trend",
+    "description": "Engineered feature usage trend feature from users_and_user_monthly_parquet",
+    "source": "users_and_user_monthly_parquet",
+    "data_type": "float64",
+    "formula_logic": "Extracted / aggregated from users_and_user_monthly_parquet",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "support_tickets_total",
+    "description": "Engineered support tickets total feature from users_and_user_monthly_parquet",
+    "source": "users_and_user_monthly_parquet",
+    "data_type": "int16",
+    "formula_logic": "Extracted / aggregated from users_and_user_monthly_parquet",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "support_tickets_recent",
+    "description": "Engineered support tickets recent feature from users_and_user_monthly_parquet",
+    "source": "users_and_user_monthly_parquet",
+    "data_type": "int16",
+    "formula_logic": "Extracted / aggregated from users_and_user_monthly_parquet",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "payment_failures_total",
+    "description": "Engineered payment failures total feature from users_and_user_monthly_parquet",
+    "source": "users_and_user_monthly_parquet",
+    "data_type": "int16",
+    "formula_logic": "Extracted / aggregated from users_and_user_monthly_parquet",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "payment_failures_recent",
+    "description": "Engineered payment failures recent feature from users_and_user_monthly_parquet",
+    "source": "users_and_user_monthly_parquet",
+    "data_type": "int16",
+    "formula_logic": "Extracted / aggregated from users_and_user_monthly_parquet",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "active_seats",
+    "description": "Engineered active seats feature from users_and_user_monthly_parquet",
+    "source": "users_and_user_monthly_parquet",
+    "data_type": "int32",
+    "formula_logic": "Extracted / aggregated from users_and_user_monthly_parquet",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "arr",
+    "description": "Engineered arr feature from users_and_user_monthly_parquet",
+    "source": "users_and_user_monthly_parquet",
+    "data_type": "float32",
+    "formula_logic": "Extracted / aggregated from users_and_user_monthly_parquet",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "activity_trend",
+    "description": "Engineered activity trend feature from users_and_user_monthly_parquet",
+    "source": "users_and_user_monthly_parquet",
+    "data_type": "float64",
+    "formula_logic": "Extracted / aggregated from users_and_user_monthly_parquet",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "usage_volatility",
+    "description": "Engineered usage volatility feature from users_and_user_monthly_parquet",
+    "source": "users_and_user_monthly_parquet",
+    "data_type": "float64",
+    "formula_logic": "Extracted / aggregated from users_and_user_monthly_parquet",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "support_burden",
+    "description": "Engineered support burden feature from users_and_user_monthly_parquet",
+    "source": "users_and_user_monthly_parquet",
+    "data_type": "float64",
+    "formula_logic": "Extracted / aggregated from users_and_user_monthly_parquet",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "payment_health",
+    "description": "Engineered payment health feature from users_and_user_monthly_parquet",
+    "source": "users_and_user_monthly_parquet",
+    "data_type": "float64",
+    "formula_logic": "Extracted / aggregated from users_and_user_monthly_parquet",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "company_size",
+    "description": "Engineered company size feature from users_and_user_monthly_parquet",
+    "source": "users_and_user_monthly_parquet",
+    "data_type": "int32",
+    "formula_logic": "Extracted / aggregated from users_and_user_monthly_parquet",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "country",
+    "description": "Engineered country feature from users_and_user_monthly_parquet",
+    "source": "users_and_user_monthly_parquet",
+    "data_type": "category",
+    "formula_logic": "Extracted / aggregated from users_and_user_monthly_parquet",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "plan_type",
+    "description": "Engineered plan type feature from users_and_user_monthly_parquet",
+    "source": "users_and_user_monthly_parquet",
+    "data_type": "category",
+    "formula_logic": "Extracted / aggregated from users_and_user_monthly_parquet",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "customer_value",
+    "description": "Engineered customer value feature from users_and_user_monthly_parquet",
+    "source": "users_and_user_monthly_parquet",
+    "data_type": "float32",
+    "formula_logic": "Extracted / aggregated from users_and_user_monthly_parquet",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "recency",
+    "description": "Engineered recency feature from users_and_user_monthly_parquet",
+    "source": "users_and_user_monthly_parquet",
+    "data_type": "int32",
+    "formula_logic": "Extracted / aggregated from users_and_user_monthly_parquet",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "frequency",
+    "description": "Engineered frequency feature from users_and_user_monthly_parquet",
+    "source": "users_and_user_monthly_parquet",
+    "data_type": "int32",
+    "formula_logic": "Extracted / aggregated from users_and_user_monthly_parquet",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "monetary_value",
+    "description": "Engineered monetary value feature from users_and_user_monthly_parquet",
+    "source": "users_and_user_monthly_parquet",
+    "data_type": "float32",
+    "formula_logic": "Extracted / aggregated from users_and_user_monthly_parquet",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "engagement",
+    "description": "Engineered engagement feature from users_and_user_monthly_parquet",
+    "source": "users_and_user_monthly_parquet",
+    "data_type": "float64",
+    "formula_logic": "Extracted / aggregated from users_and_user_monthly_parquet",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "subscription_health",
+    "description": "Engineered subscription health feature from users_and_user_monthly_parquet",
+    "source": "users_and_user_monthly_parquet",
+    "data_type": "float64",
+    "formula_logic": "Extracted / aggregated from users_and_user_monthly_parquet",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "tenure",
+    "description": "Engineered tenure feature from dataset_csv_telecom",
+    "source": "dataset_csv_telecom",
+    "data_type": "int64",
+    "formula_logic": "Extracted / aggregated from dataset_csv_telecom",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "MonthlyCharges",
+    "description": "Engineered MonthlyCharges feature from dataset_csv_telecom",
+    "source": "dataset_csv_telecom",
+    "data_type": "float64",
+    "formula_logic": "Extracted / aggregated from dataset_csv_telecom",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "TotalCharges",
+    "description": "Engineered TotalCharges feature from dataset_csv_telecom",
+    "source": "dataset_csv_telecom",
+    "data_type": "float64",
+    "formula_logic": "Extracted / aggregated from dataset_csv_telecom",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "charges_per_tenure",
+    "description": "Engineered charges per tenure feature from dataset_csv_telecom",
+    "source": "dataset_csv_telecom",
+    "data_type": "float64",
+    "formula_logic": "Extracted / aggregated from dataset_csv_telecom",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "is_senior",
+    "description": "Engineered is senior feature from dataset_csv_telecom",
+    "source": "dataset_csv_telecom",
+    "data_type": "int64",
+    "formula_logic": "Extracted / aggregated from dataset_csv_telecom",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "has_partner",
+    "description": "Engineered has partner feature from dataset_csv_telecom",
+    "source": "dataset_csv_telecom",
+    "data_type": "int64",
+    "formula_logic": "Extracted / aggregated from dataset_csv_telecom",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "has_dependents",
+    "description": "Engineered has dependents feature from dataset_csv_telecom",
+    "source": "dataset_csv_telecom",
+    "data_type": "int64",
+    "formula_logic": "Extracted / aggregated from dataset_csv_telecom",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "has_phone",
+    "description": "Engineered has phone feature from dataset_csv_telecom",
+    "source": "dataset_csv_telecom",
+    "data_type": "int64",
+    "formula_logic": "Extracted / aggregated from dataset_csv_telecom",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "has_fiber",
+    "description": "Engineered has fiber feature from dataset_csv_telecom",
+    "source": "dataset_csv_telecom",
+    "data_type": "int64",
+    "formula_logic": "Extracted / aggregated from dataset_csv_telecom",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "has_dsl",
+    "description": "Engineered has dsl feature from dataset_csv_telecom",
+    "source": "dataset_csv_telecom",
+    "data_type": "int64",
+    "formula_logic": "Extracted / aggregated from dataset_csv_telecom",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "has_tech_support",
+    "description": "Engineered has tech support feature from dataset_csv_telecom",
+    "source": "dataset_csv_telecom",
+    "data_type": "int64",
+    "formula_logic": "Extracted / aggregated from dataset_csv_telecom",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "has_online_security",
+    "description": "Engineered has online security feature from dataset_csv_telecom",
+    "source": "dataset_csv_telecom",
+    "data_type": "int64",
+    "formula_logic": "Extracted / aggregated from dataset_csv_telecom",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "has_online_backup",
+    "description": "Engineered has online backup feature from dataset_csv_telecom",
+    "source": "dataset_csv_telecom",
+    "data_type": "int64",
+    "formula_logic": "Extracted / aggregated from dataset_csv_telecom",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "has_device_protection",
+    "description": "Engineered has device protection feature from dataset_csv_telecom",
+    "source": "dataset_csv_telecom",
+    "data_type": "int64",
+    "formula_logic": "Extracted / aggregated from dataset_csv_telecom",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "has_streaming_tv",
+    "description": "Engineered has streaming tv feature from dataset_csv_telecom",
+    "source": "dataset_csv_telecom",
+    "data_type": "int64",
+    "formula_logic": "Extracted / aggregated from dataset_csv_telecom",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "has_streaming_movies",
+    "description": "Engineered has streaming movies feature from dataset_csv_telecom",
+    "source": "dataset_csv_telecom",
+    "data_type": "int64",
+    "formula_logic": "Extracted / aggregated from dataset_csv_telecom",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "is_month_to_month",
+    "description": "Engineered is month to month feature from dataset_csv_telecom",
+    "source": "dataset_csv_telecom",
+    "data_type": "int64",
+    "formula_logic": "Extracted / aggregated from dataset_csv_telecom",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "is_one_year",
+    "description": "Engineered is one year feature from dataset_csv_telecom",
+    "source": "dataset_csv_telecom",
+    "data_type": "int64",
+    "formula_logic": "Extracted / aggregated from dataset_csv_telecom",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "is_two_year",
+    "description": "Engineered is two year feature from dataset_csv_telecom",
+    "source": "dataset_csv_telecom",
+    "data_type": "int64",
+    "formula_logic": "Extracted / aggregated from dataset_csv_telecom",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "is_paperless",
+    "description": "Engineered is paperless feature from dataset_csv_telecom",
+    "source": "dataset_csv_telecom",
+    "data_type": "int64",
+    "formula_logic": "Extracted / aggregated from dataset_csv_telecom",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "is_auto_pay",
+    "description": "Engineered is auto pay feature from dataset_csv_telecom",
+    "source": "dataset_csv_telecom",
+    "data_type": "int64",
+    "formula_logic": "Extracted / aggregated from dataset_csv_telecom",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "total_services",
+    "description": "Engineered total services feature from dataset_csv_telecom",
+    "source": "dataset_csv_telecom",
+    "data_type": "int64",
+    "formula_logic": "Extracted / aggregated from dataset_csv_telecom",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "mrr",
+    "description": "Engineered mrr feature from dataset_csv_telecom",
+    "source": "dataset_csv_telecom",
+    "data_type": "float64",
+    "formula_logic": "Extracted / aggregated from dataset_csv_telecom",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "arr",
+    "description": "Engineered arr feature from dataset_csv_telecom",
+    "source": "dataset_csv_telecom",
+    "data_type": "float64",
+    "formula_logic": "Extracted / aggregated from dataset_csv_telecom",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "customer_value",
+    "description": "Engineered customer value feature from dataset_csv_telecom",
+    "source": "dataset_csv_telecom",
+    "data_type": "float64",
+    "formula_logic": "Extracted / aggregated from dataset_csv_telecom",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "payment_health",
+    "description": "Engineered payment health feature from dataset_csv_telecom",
+    "source": "dataset_csv_telecom",
+    "data_type": "float64",
+    "formula_logic": "Extracted / aggregated from dataset_csv_telecom",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "support_burden",
+    "description": "Engineered support burden feature from dataset_csv_telecom",
+    "source": "dataset_csv_telecom",
+    "data_type": "float64",
+    "formula_logic": "Extracted / aggregated from dataset_csv_telecom",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "CreditScore",
+    "description": "Engineered CreditScore feature from bank_churn_train_csv",
+    "source": "bank_churn_train_csv",
+    "data_type": "float64",
+    "formula_logic": "Extracted / aggregated from bank_churn_train_csv",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "Age",
+    "description": "Engineered Age feature from bank_churn_train_csv",
+    "source": "bank_churn_train_csv",
+    "data_type": "float64",
+    "formula_logic": "Extracted / aggregated from bank_churn_train_csv",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "Tenure",
+    "description": "Engineered Tenure feature from bank_churn_train_csv",
+    "source": "bank_churn_train_csv",
+    "data_type": "float64",
+    "formula_logic": "Extracted / aggregated from bank_churn_train_csv",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "Balance",
+    "description": "Engineered Balance feature from bank_churn_train_csv",
+    "source": "bank_churn_train_csv",
+    "data_type": "float64",
+    "formula_logic": "Extracted / aggregated from bank_churn_train_csv",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "NumOfProducts",
+    "description": "Engineered NumOfProducts feature from bank_churn_train_csv",
+    "source": "bank_churn_train_csv",
+    "data_type": "float64",
+    "formula_logic": "Extracted / aggregated from bank_churn_train_csv",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "HasCrCard",
+    "description": "Engineered HasCrCard feature from bank_churn_train_csv",
+    "source": "bank_churn_train_csv",
+    "data_type": "float64",
+    "formula_logic": "Extracted / aggregated from bank_churn_train_csv",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "IsActiveMember",
+    "description": "Engineered IsActiveMember feature from bank_churn_train_csv",
+    "source": "bank_churn_train_csv",
+    "data_type": "float64",
+    "formula_logic": "Extracted / aggregated from bank_churn_train_csv",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "EstimatedSalary",
+    "description": "Engineered EstimatedSalary feature from bank_churn_train_csv",
+    "source": "bank_churn_train_csv",
+    "data_type": "float64",
+    "formula_logic": "Extracted / aggregated from bank_churn_train_csv",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "balance_to_salary",
+    "description": "Engineered balance to salary feature from bank_churn_train_csv",
+    "source": "bank_churn_train_csv",
+    "data_type": "float64",
+    "formula_logic": "Extracted / aggregated from bank_churn_train_csv",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "credit_score_tier",
+    "description": "Engineered credit score tier feature from bank_churn_train_csv",
+    "source": "bank_churn_train_csv",
+    "data_type": "int64",
+    "formula_logic": "Extracted / aggregated from bank_churn_train_csv",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "age_over_50",
+    "description": "Engineered age over 50 feature from bank_churn_train_csv",
+    "source": "bank_churn_train_csv",
+    "data_type": "int64",
+    "formula_logic": "Extracted / aggregated from bank_churn_train_csv",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "products_per_tenure",
+    "description": "Engineered products per tenure feature from bank_churn_train_csv",
+    "source": "bank_churn_train_csv",
+    "data_type": "float64",
+    "formula_logic": "Extracted / aggregated from bank_churn_train_csv",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "is_france",
+    "description": "Engineered is france feature from bank_churn_train_csv",
+    "source": "bank_churn_train_csv",
+    "data_type": "int64",
+    "formula_logic": "Extracted / aggregated from bank_churn_train_csv",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "is_germany",
+    "description": "Engineered is germany feature from bank_churn_train_csv",
+    "source": "bank_churn_train_csv",
+    "data_type": "int64",
+    "formula_logic": "Extracted / aggregated from bank_churn_train_csv",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "is_spain",
+    "description": "Engineered is spain feature from bank_churn_train_csv",
+    "source": "bank_churn_train_csv",
+    "data_type": "int64",
+    "formula_logic": "Extracted / aggregated from bank_churn_train_csv",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "is_female",
+    "description": "Engineered is female feature from bank_churn_train_csv",
+    "source": "bank_churn_train_csv",
+    "data_type": "int64",
+    "formula_logic": "Extracted / aggregated from bank_churn_train_csv",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "is_zero_balance",
+    "description": "Engineered is zero balance feature from bank_churn_train_csv",
+    "source": "bank_churn_train_csv",
+    "data_type": "int64",
+    "formula_logic": "Extracted / aggregated from bank_churn_train_csv",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "high_value_customer",
+    "description": "Engineered high value customer feature from bank_churn_train_csv",
+    "source": "bank_churn_train_csv",
+    "data_type": "int64",
+    "formula_logic": "Extracted / aggregated from bank_churn_train_csv",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "mrr",
+    "description": "Engineered mrr feature from bank_churn_train_csv",
+    "source": "bank_churn_train_csv",
+    "data_type": "float64",
+    "formula_logic": "Extracted / aggregated from bank_churn_train_csv",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "arr",
+    "description": "Engineered arr feature from bank_churn_train_csv",
+    "source": "bank_churn_train_csv",
+    "data_type": "float64",
+    "formula_logic": "Extracted / aggregated from bank_churn_train_csv",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "customer_value",
+    "description": "Engineered customer value feature from bank_churn_train_csv",
+    "source": "bank_churn_train_csv",
+    "data_type": "float64",
+    "formula_logic": "Extracted / aggregated from bank_churn_train_csv",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "payment_health",
+    "description": "Engineered payment health feature from bank_churn_train_csv",
+    "source": "bank_churn_train_csv",
+    "data_type": "float64",
+    "formula_logic": "Extracted / aggregated from bank_churn_train_csv",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "age",
+    "description": "Engineered age feature from streaming_subscription_train_csv",
+    "source": "streaming_subscription_train_csv",
+    "data_type": "int64",
+    "formula_logic": "Extracted / aggregated from streaming_subscription_train_csv",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "weekly_hours",
+    "description": "Engineered weekly hours feature from streaming_subscription_train_csv",
+    "source": "streaming_subscription_train_csv",
+    "data_type": "float64",
+    "formula_logic": "Extracted / aggregated from streaming_subscription_train_csv",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "average_session_length",
+    "description": "Engineered average session length feature from streaming_subscription_train_csv",
+    "source": "streaming_subscription_train_csv",
+    "data_type": "float64",
+    "formula_logic": "Extracted / aggregated from streaming_subscription_train_csv",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "song_skip_rate",
+    "description": "Engineered song skip rate feature from streaming_subscription_train_csv",
+    "source": "streaming_subscription_train_csv",
+    "data_type": "float64",
+    "formula_logic": "Extracted / aggregated from streaming_subscription_train_csv",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "weekly_songs_played",
+    "description": "Engineered weekly songs played feature from streaming_subscription_train_csv",
+    "source": "streaming_subscription_train_csv",
+    "data_type": "int64",
+    "formula_logic": "Extracted / aggregated from streaming_subscription_train_csv",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "weekly_unique_songs",
+    "description": "Engineered weekly unique songs feature from streaming_subscription_train_csv",
+    "source": "streaming_subscription_train_csv",
+    "data_type": "int64",
+    "formula_logic": "Extracted / aggregated from streaming_subscription_train_csv",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "num_favorite_artists",
+    "description": "Engineered num favorite artists feature from streaming_subscription_train_csv",
+    "source": "streaming_subscription_train_csv",
+    "data_type": "int64",
+    "formula_logic": "Extracted / aggregated from streaming_subscription_train_csv",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "num_platform_friends",
+    "description": "Engineered num platform friends feature from streaming_subscription_train_csv",
+    "source": "streaming_subscription_train_csv",
+    "data_type": "int64",
+    "formula_logic": "Extracted / aggregated from streaming_subscription_train_csv",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "num_playlists_created",
+    "description": "Engineered num playlists created feature from streaming_subscription_train_csv",
+    "source": "streaming_subscription_train_csv",
+    "data_type": "int64",
+    "formula_logic": "Extracted / aggregated from streaming_subscription_train_csv",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "num_shared_playlists",
+    "description": "Engineered num shared playlists feature from streaming_subscription_train_csv",
+    "source": "streaming_subscription_train_csv",
+    "data_type": "int64",
+    "formula_logic": "Extracted / aggregated from streaming_subscription_train_csv",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "notifications_clicked",
+    "description": "Engineered notifications clicked feature from streaming_subscription_train_csv",
+    "source": "streaming_subscription_train_csv",
+    "data_type": "int64",
+    "formula_logic": "Extracted / aggregated from streaming_subscription_train_csv",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "num_subscription_pauses",
+    "description": "Engineered num subscription pauses feature from streaming_subscription_train_csv",
+    "source": "streaming_subscription_train_csv",
+    "data_type": "int64",
+    "formula_logic": "Extracted / aggregated from streaming_subscription_train_csv",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "skip_rate_per_song",
+    "description": "Engineered skip rate per song feature from streaming_subscription_train_csv",
+    "source": "streaming_subscription_train_csv",
+    "data_type": "float64",
+    "formula_logic": "Extracted / aggregated from streaming_subscription_train_csv",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "songs_per_hour",
+    "description": "Engineered songs per hour feature from streaming_subscription_train_csv",
+    "source": "streaming_subscription_train_csv",
+    "data_type": "float64",
+    "formula_logic": "Extracted / aggregated from streaming_subscription_train_csv",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "variety_ratio",
+    "description": "Engineered variety ratio feature from streaming_subscription_train_csv",
+    "source": "streaming_subscription_train_csv",
+    "data_type": "float64",
+    "formula_logic": "Extracted / aggregated from streaming_subscription_train_csv",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "social_score",
+    "description": "Engineered social score feature from streaming_subscription_train_csv",
+    "source": "streaming_subscription_train_csv",
+    "data_type": "int64",
+    "formula_logic": "Extracted / aggregated from streaming_subscription_train_csv",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "playlist_intensity",
+    "description": "Engineered playlist intensity feature from streaming_subscription_train_csv",
+    "source": "streaming_subscription_train_csv",
+    "data_type": "float64",
+    "formula_logic": "Extracted / aggregated from streaming_subscription_train_csv",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "pause_risk",
+    "description": "Engineered pause risk feature from streaming_subscription_train_csv",
+    "source": "streaming_subscription_train_csv",
+    "data_type": "int64",
+    "formula_logic": "Extracted / aggregated from streaming_subscription_train_csv",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "support_contacted",
+    "description": "Engineered support contacted feature from streaming_subscription_train_csv",
+    "source": "streaming_subscription_train_csv",
+    "data_type": "int64",
+    "formula_logic": "Extracted / aggregated from streaming_subscription_train_csv",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "is_premium",
+    "description": "Engineered is premium feature from streaming_subscription_train_csv",
+    "source": "streaming_subscription_train_csv",
+    "data_type": "int64",
+    "formula_logic": "Extracted / aggregated from streaming_subscription_train_csv",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "is_family",
+    "description": "Engineered is family feature from streaming_subscription_train_csv",
+    "source": "streaming_subscription_train_csv",
+    "data_type": "int64",
+    "formula_logic": "Extracted / aggregated from streaming_subscription_train_csv",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "is_student",
+    "description": "Engineered is student feature from streaming_subscription_train_csv",
+    "source": "streaming_subscription_train_csv",
+    "data_type": "int64",
+    "formula_logic": "Extracted / aggregated from streaming_subscription_train_csv",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "is_annual",
+    "description": "Engineered is annual feature from streaming_subscription_train_csv",
+    "source": "streaming_subscription_train_csv",
+    "data_type": "int64",
+    "formula_logic": "Extracted / aggregated from streaming_subscription_train_csv",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "tenure",
+    "description": "Engineered tenure feature from streaming_subscription_train_csv",
+    "source": "streaming_subscription_train_csv",
+    "data_type": "int64",
+    "formula_logic": "Extracted / aggregated from streaming_subscription_train_csv",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "mrr",
+    "description": "Engineered mrr feature from streaming_subscription_train_csv",
+    "source": "streaming_subscription_train_csv",
+    "data_type": "float64",
+    "formula_logic": "Extracted / aggregated from streaming_subscription_train_csv",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "arr",
+    "description": "Engineered arr feature from streaming_subscription_train_csv",
+    "source": "streaming_subscription_train_csv",
+    "data_type": "float64",
+    "formula_logic": "Extracted / aggregated from streaming_subscription_train_csv",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "customer_value",
+    "description": "Engineered customer value feature from streaming_subscription_train_csv",
+    "source": "streaming_subscription_train_csv",
+    "data_type": "float64",
+    "formula_logic": "Extracted / aggregated from streaming_subscription_train_csv",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "engagement",
+    "description": "Engineered engagement feature from streaming_subscription_train_csv",
+    "source": "streaming_subscription_train_csv",
+    "data_type": "float64",
+    "formula_logic": "Extracted / aggregated from streaming_subscription_train_csv",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "payment_health",
+    "description": "Engineered payment health feature from streaming_subscription_train_csv",
+    "source": "streaming_subscription_train_csv",
+    "data_type": "float64",
+    "formula_logic": "Extracted / aggregated from streaming_subscription_train_csv",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "support_burden",
+    "description": "Engineered support burden feature from streaming_subscription_train_csv",
+    "source": "streaming_subscription_train_csv",
+    "data_type": "float64",
+    "formula_logic": "Extracted / aggregated from streaming_subscription_train_csv",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "total_events",
+    "description": "Engineered total events feature from ecommerce_oct_clickstream",
+    "source": "ecommerce_oct_clickstream",
+    "data_type": "int64",
+    "formula_logic": "Extracted / aggregated from ecommerce_oct_clickstream",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "view_count",
+    "description": "Engineered view count feature from ecommerce_oct_clickstream",
+    "source": "ecommerce_oct_clickstream",
+    "data_type": "int64",
+    "formula_logic": "Extracted / aggregated from ecommerce_oct_clickstream",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "cart_count",
+    "description": "Engineered cart count feature from ecommerce_oct_clickstream",
+    "source": "ecommerce_oct_clickstream",
+    "data_type": "int64",
+    "formula_logic": "Extracted / aggregated from ecommerce_oct_clickstream",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "hist_purchase_count",
+    "description": "Engineered hist purchase count feature from ecommerce_oct_clickstream",
+    "source": "ecommerce_oct_clickstream",
+    "data_type": "int64",
+    "formula_logic": "Extracted / aggregated from ecommerce_oct_clickstream",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "unique_sessions",
+    "description": "Engineered unique sessions feature from ecommerce_oct_clickstream",
+    "source": "ecommerce_oct_clickstream",
+    "data_type": "int64",
+    "formula_logic": "Extracted / aggregated from ecommerce_oct_clickstream",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "avg_price_viewed",
+    "description": "Engineered avg price viewed feature from ecommerce_oct_clickstream",
+    "source": "ecommerce_oct_clickstream",
+    "data_type": "float64",
+    "formula_logic": "Extracted / aggregated from ecommerce_oct_clickstream",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "max_price_viewed",
+    "description": "Engineered max price viewed feature from ecommerce_oct_clickstream",
+    "source": "ecommerce_oct_clickstream",
+    "data_type": "float64",
+    "formula_logic": "Extracted / aggregated from ecommerce_oct_clickstream",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "total_spend",
+    "description": "Engineered total spend feature from ecommerce_oct_clickstream",
+    "source": "ecommerce_oct_clickstream",
+    "data_type": "float64",
+    "formula_logic": "Extracted / aggregated from ecommerce_oct_clickstream",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "cart_to_view_ratio",
+    "description": "Engineered cart to view ratio feature from ecommerce_oct_clickstream",
+    "source": "ecommerce_oct_clickstream",
+    "data_type": "float64",
+    "formula_logic": "Extracted / aggregated from ecommerce_oct_clickstream",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "events_per_session",
+    "description": "Engineered events per session feature from ecommerce_oct_clickstream",
+    "source": "ecommerce_oct_clickstream",
+    "data_type": "float64",
+    "formula_logic": "Extracted / aggregated from ecommerce_oct_clickstream",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "intent_score",
+    "description": "Engineered intent score feature from ecommerce_oct_clickstream",
+    "source": "ecommerce_oct_clickstream",
+    "data_type": "float64",
+    "formula_logic": "Extracted / aggregated from ecommerce_oct_clickstream",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "recency",
+    "description": "Engineered recency feature from online_retail_ii_xlsx",
+    "source": "online_retail_ii_xlsx",
+    "data_type": "int64",
+    "formula_logic": "Extracted / aggregated from online_retail_ii_xlsx",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "frequency",
+    "description": "Engineered frequency feature from online_retail_ii_xlsx",
+    "source": "online_retail_ii_xlsx",
+    "data_type": "int64",
+    "formula_logic": "Extracted / aggregated from online_retail_ii_xlsx",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "monetary_value",
+    "description": "Engineered monetary value feature from online_retail_ii_xlsx",
+    "source": "online_retail_ii_xlsx",
+    "data_type": "float64",
+    "formula_logic": "Extracted / aggregated from online_retail_ii_xlsx",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "total_items",
+    "description": "Engineered total items feature from online_retail_ii_xlsx",
+    "source": "online_retail_ii_xlsx",
+    "data_type": "int64",
+    "formula_logic": "Extracted / aggregated from online_retail_ii_xlsx",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "avg_order_value",
+    "description": "Engineered avg order value feature from online_retail_ii_xlsx",
+    "source": "online_retail_ii_xlsx",
+    "data_type": "float64",
+    "formula_logic": "Extracted / aggregated from online_retail_ii_xlsx",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "active_days",
+    "description": "Engineered active days feature from online_retail_ii_xlsx",
+    "source": "online_retail_ii_xlsx",
+    "data_type": "int64",
+    "formula_logic": "Extracted / aggregated from online_retail_ii_xlsx",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "customer_value",
+    "description": "Engineered customer value feature from online_retail_ii_xlsx",
+    "source": "online_retail_ii_xlsx",
+    "data_type": "float64",
+    "formula_logic": "Extracted / aggregated from online_retail_ii_xlsx",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "tenure",
+    "description": "Engineered tenure feature from online_retail_ii_xlsx",
+    "source": "online_retail_ii_xlsx",
+    "data_type": "int64",
+    "formula_logic": "Extracted / aggregated from online_retail_ii_xlsx",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "clv_estimate",
+    "description": "Engineered clv estimate feature from online_retail_ii_xlsx",
+    "source": "online_retail_ii_xlsx",
+    "data_type": "float64",
+    "formula_logic": "Extracted / aggregated from online_retail_ii_xlsx",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "AMT_INCOME_TOTAL",
+    "description": "Engineered AMT INCOME TOTAL feature from home_credit_application_train",
+    "source": "home_credit_application_train",
+    "data_type": "float64",
+    "formula_logic": "Extracted / aggregated from home_credit_application_train",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "AMT_CREDIT",
+    "description": "Engineered AMT CREDIT feature from home_credit_application_train",
+    "source": "home_credit_application_train",
+    "data_type": "float64",
+    "formula_logic": "Extracted / aggregated from home_credit_application_train",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "AMT_ANNUITY",
+    "description": "Engineered AMT ANNUITY feature from home_credit_application_train",
+    "source": "home_credit_application_train",
+    "data_type": "float64",
+    "formula_logic": "Extracted / aggregated from home_credit_application_train",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "debt_to_income",
+    "description": "Engineered debt to income feature from home_credit_application_train",
+    "source": "home_credit_application_train",
+    "data_type": "float64",
+    "formula_logic": "Extracted / aggregated from home_credit_application_train",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "annuity_to_income",
+    "description": "Engineered annuity to income feature from home_credit_application_train",
+    "source": "home_credit_application_train",
+    "data_type": "float64",
+    "formula_logic": "Extracted / aggregated from home_credit_application_train",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "credit_to_annuity",
+    "description": "Engineered credit to annuity feature from home_credit_application_train",
+    "source": "home_credit_application_train",
+    "data_type": "float64",
+    "formula_logic": "Extracted / aggregated from home_credit_application_train",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "goods_to_credit",
+    "description": "Engineered goods to credit feature from home_credit_application_train",
+    "source": "home_credit_application_train",
+    "data_type": "float64",
+    "formula_logic": "Extracted / aggregated from home_credit_application_train",
+    "missing_percentage": 0.08,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "age_years",
+    "description": "Engineered age years feature from home_credit_application_train",
+    "source": "home_credit_application_train",
+    "data_type": "float64",
+    "formula_logic": "Extracted / aggregated from home_credit_application_train",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "employed_years",
+    "description": "Engineered employed years feature from home_credit_application_train",
+    "source": "home_credit_application_train",
+    "data_type": "float64",
+    "formula_logic": "Extracted / aggregated from home_credit_application_train",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "ext_source_mean",
+    "description": "Engineered ext source mean feature from home_credit_application_train",
+    "source": "home_credit_application_train",
+    "data_type": "float64",
+    "formula_logic": "Extracted / aggregated from home_credit_application_train",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "is_cash_loan",
+    "description": "Engineered is cash loan feature from home_credit_application_train",
+    "source": "home_credit_application_train",
+    "data_type": "int64",
+    "formula_logic": "Extracted / aggregated from home_credit_application_train",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "own_car",
+    "description": "Engineered own car feature from home_credit_application_train",
+    "source": "home_credit_application_train",
+    "data_type": "int64",
+    "formula_logic": "Extracted / aggregated from home_credit_application_train",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "own_realty",
+    "description": "Engineered own realty feature from home_credit_application_train",
+    "source": "home_credit_application_train",
+    "data_type": "int64",
+    "formula_logic": "Extracted / aggregated from home_credit_application_train",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "has_children",
+    "description": "Engineered has children feature from home_credit_application_train",
+    "source": "home_credit_application_train",
+    "data_type": "int64",
+    "formula_logic": "Extracted / aggregated from home_credit_application_train",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  },
+  {
+    "feature_name": "region_rating",
+    "description": "Engineered region rating feature from home_credit_application_train",
+    "source": "home_credit_application_train",
+    "data_type": "int64",
+    "formula_logic": "Extracted / aggregated from home_credit_application_train",
+    "missing_percentage": 0.0,
+    "leakage_status": "CLEAN",
+    "importance_after_training": null
+  }
+]

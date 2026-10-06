@@ -1,0 +1,122 @@
+[
+  {
+    "feature": "is_family",
+    "importance": 0.5657
+  },
+  {
+    "feature": "weekly_hours",
+    "importance": 0.5252
+  },
+  {
+    "feature": "is_premium",
+    "importance": 0.5202
+  },
+  {
+    "feature": "num_subscription_pauses",
+    "importance": 0.5124
+  },
+  {
+    "feature": "song_skip_rate",
+    "importance": 0.4633
+  },
+  {
+    "feature": "age",
+    "importance": 0.4355
+  },
+  {
+    "feature": "is_student",
+    "importance": 0.2212
+  },
+  {
+    "feature": "engagement",
+    "importance": 0.1078
+  },
+  {
+    "feature": "notifications_clicked",
+    "importance": 0.0859
+  },
+  {
+    "feature": "weekly_unique_songs",
+    "importance": 0.0317
+  },
+  {
+    "feature": "songs_per_hour",
+    "importance": 0.0122
+  },
+  {
+    "feature": "num_platform_friends",
+    "importance": 0.0055
+  },
+  {
+    "feature": "playlist_intensity",
+    "importance": 0.0038
+  },
+  {
+    "feature": "skip_rate_per_song",
+    "importance": 0.0034
+  },
+  {
+    "feature": "average_session_length",
+    "importance": 0.0024
+  },
+  {
+    "feature": "variety_ratio",
+    "importance": 0.0022
+  },
+  {
+    "feature": "num_playlists_created",
+    "importance": 0.002
+  },
+  {
+    "feature": "num_favorite_artists",
+    "importance": 0.0014
+  },
+  {
+    "feature": "num_shared_playlists",
+    "importance": 0.0011
+  },
+  {
+    "feature": "social_score",
+    "importance": 0.0011
+  },
+  {
+    "feature": "weekly_songs_played",
+    "importance": 0.0007
+  },
+  {
+    "feature": "pause_risk",
+    "importance": 0.0
+  },
+  {
+    "feature": "support_contacted",
+    "importance": 0.0
+  },
+  {
+    "feature": "is_annual",
+    "importance": 0.0
+  },
+  {
+    "feature": "tenure",
+    "importance": 0.0
+  },
+  {
+    "feature": "mrr",
+    "importance": 0.0
+  },
+  {
+    "feature": "arr",
+    "importance": 0.0
+  },
+  {
+    "feature": "customer_value",
+    "importance": 0.0
+  },
+  {
+    "feature": "payment_health",
+    "importance": 0.0
+  },
+  {
+    "feature": "support_burden",
+    "importance": 0.0
+  }
+]

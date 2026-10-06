@@ -1,0 +1,70 @@
+{
+  "Flagship_SaaS_ChurnIQ": {
+    "status": "PASSED",
+    "dataset": "Flagship_SaaS_ChurnIQ",
+    "rows": 5000,
+    "columns": 30,
+    "target_column": "churn_target",
+    "high_correlation_features": [],
+    "duplicate_entities": 0,
+    "temporal_cutoff_enforced": true,
+    "issues": []
+  },
+  "Telecom_Churn_Expert": {
+    "status": "PASSED",
+    "dataset": "Telecom_Churn_Expert",
+    "rows": 7043,
+    "columns": 29,
+    "target_column": "churn_target",
+    "high_correlation_features": [],
+    "duplicate_entities": 0,
+    "temporal_cutoff_enforced": true,
+    "issues": []
+  },
+  "Banking_Churn_Expert": {
+    "status": "WARNING",
+    "dataset": "Banking_Churn_Expert",
+    "rows": 15000,
+    "columns": 24,
+    "target_column": "churn_target",
+    "high_correlation_features": [],
+    "duplicate_entities": 8724,
+    "temporal_cutoff_enforced": true,
+    "issues": [
+      "Found 8724 duplicate entity IDs in customer_id."
+    ]
+  },
+  "Streaming_Subscription_Expert": {
+    "status": "PASSED",
+    "dataset": "Streaming_Subscription_Expert",
+    "rows": 125000,
+    "columns": 32,
+    "target_column": "churn_target",
+    "high_correlation_features": [],
+    "duplicate_entities": 0,
+    "temporal_cutoff_enforced": true,
+    "issues": []
+  },
+  "CommerceIQ": {
+    "status": "PASSED",
+    "dataset": "CommerceIQ",
+    "rows": 64522,
+    "columns": 13,
+    "target_column": "purchase_target",
+    "high_correlation_features": [],
+    "duplicate_entities": 0,
+    "temporal_cutoff_enforced": true,
+    "issues": []
+  },
+  "CreditRiskIQ": {
+    "status": "PASSED",
+    "dataset": "CreditRiskIQ",
+    "rows": 50000,
+    "columns": 17,
+    "target_column": "default_target",
+    "high_correlation_features": [],
+    "duplicate_entities": 0,
+    "temporal_cutoff_enforced": true,
+    "issues": []
+  }
+}

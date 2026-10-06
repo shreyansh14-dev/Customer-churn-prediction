@@ -1,0 +1,42 @@
+{
+  "model_version": "v1.0.0-retailiq",
+  "architecture": "K-Means RFM Segmentation (k=4)",
+  "training_timestamp": "2026-10-06T20:01:14.468305",
+  "customer_count": 1645,
+  "metrics": {
+    "silhouette_score": 0.3398,
+    "davies_bouldin_score": 0.9843,
+    "calinski_harabasz_score": 848.0513,
+    "customer_count": 1645,
+    "cluster_profiles": {
+      "At-Risk / Inactive": {
+        "customers": 232,
+        "avg_recency_days": 40.39,
+        "avg_frequency": 1.25,
+        "avg_monetary": 105.66,
+        "avg_clv": 107.0
+      },
+      "Champions": {
+        "customers": 290,
+        "avg_recency_days": 16.67,
+        "avg_frequency": 5.35,
+        "avg_monetary": 3690.26,
+        "avg_clv": 4198.89
+      },
+      "Loyal Customers": {
+        "customers": 693,
+        "avg_recency_days": 22.09,
+        "avg_frequency": 1.47,
+        "avg_monetary": 521.43,
+        "avg_clv": 540.53
+      },
+      "Potential / Promising": {
+        "customers": 430,
+        "avg_recency_days": 75.1,
+        "avg_frequency": 1.21,
+        "avg_monetary": 404.57,
+        "avg_clv": 404.57
+      }
+    }
+  }
+}

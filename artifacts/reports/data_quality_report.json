@@ -1,0 +1,122 @@
+{
+  "telecom_churn": {
+    "dataset": "Telecom Customer Churn",
+    "file": "dataset.csv",
+    "domain": "Telecom",
+    "entity": "customerID",
+    "target": "Churn",
+    "quality": {
+      "score": 100.0,
+      "metrics": {
+        "total_rows": 7043,
+        "total_columns": 21,
+        "missing_cells": 11,
+        "missing_percentage": 0.01,
+        "duplicate_id_rate": 0.0,
+        "outlier_rate": 0.0,
+        "target_available": true,
+        "target_missing_pct": 0.0
+      }
+    }
+  },
+  "saas_users": {
+    "dataset": "B2B SaaS Users Profile",
+    "file": "users.parquet",
+    "domain": "B2B SaaS",
+    "entity": "user_id",
+    "target": "None (Demographics & Plans)",
+    "quality": {
+      "score": 96.8,
+      "metrics": {
+        "total_rows": 5000,
+        "total_columns": 22,
+        "missing_cells": 3869,
+        "missing_percentage": 3.52,
+        "duplicate_id_rate": 0.0,
+        "outlier_rate": 1.42,
+        "target_available": false,
+        "target_missing_pct": 0.0
+      }
+    }
+  },
+  "saas_monthly": {
+    "dataset": "B2B SaaS Monthly Longitudinal Observations",
+    "file": "user_monthly.parquet",
+    "domain": "B2B SaaS",
+    "entity": "user_id",
+    "target": "churned_next_month",
+    "quality": {
+      "score": 94.3,
+      "metrics": {
+        "total_rows": 79817,
+        "total_columns": 15,
+        "missing_cells": 0,
+        "missing_percentage": 0.0,
+        "duplicate_id_rate": 0.0,
+        "outlier_rate": 0.89,
+        "target_available": true,
+        "target_missing_pct": 0.0
+      }
+    }
+  },
+  "banking_churn": {
+    "dataset": "Bank Customer Churn",
+    "file": "bank-customer-churn-prediction-challenge.zip/train.csv",
+    "domain": "Banking",
+    "entity": "CustomerId",
+    "target": "Exited",
+    "quality": {
+      "score": 75.0,
+      "metrics": {
+        "total_rows": 15000,
+        "total_columns": 14,
+        "missing_cells": 0,
+        "missing_percentage": 0.0,
+        "duplicate_id_rate": 58.16,
+        "outlier_rate": 0.0,
+        "target_available": true,
+        "target_missing_pct": 0.0
+      }
+    }
+  },
+  "streaming_churn": {
+    "dataset": "Streaming Media Subscription Churn",
+    "file": "streaming-subscription-churn-model.zip/train.csv",
+    "domain": "Media & Streaming",
+    "entity": "customer_id",
+    "target": "churned",
+    "quality": {
+      "score": 100.0,
+      "metrics": {
+        "total_rows": 125000,
+        "total_columns": 20,
+        "missing_cells": 0,
+        "missing_percentage": 0.0,
+        "duplicate_id_rate": 0.0,
+        "outlier_rate": 0.0,
+        "target_available": true,
+        "target_missing_pct": 0.0
+      }
+    }
+  },
+  "credit_risk": {
+    "dataset": "Home Credit Loan Applications",
+    "file": "home-credit-default-risk.zip/application_train.csv",
+    "domain": "Fintech & Lending",
+    "entity": "SK_ID_CURR",
+    "target": "TARGET",
+    "quality": {
+      "score": 84.9,
+      "metrics": {
+        "total_rows": 25000,
+        "total_columns": 122,
+        "missing_cells": 743153,
+        "missing_percentage": 24.37,
+        "duplicate_id_rate": 0.0,
+        "outlier_rate": 0.68,
+        "target_available": true,
+        "target_missing_pct": 0.0
+      }
+    }
+  }
+}

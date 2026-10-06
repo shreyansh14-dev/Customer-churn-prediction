@@ -1,0 +1,154 @@
+[
+  {
+    "feature": "tenure",
+    "importance": 0.0842
+  },
+  {
+    "feature": "feature_usage_score",
+    "importance": 0.0809
+  },
+  {
+    "feature": "support_burden",
+    "importance": 0.0394
+  },
+  {
+    "feature": "sessions_mean",
+    "importance": 0.0356
+  },
+  {
+    "feature": "sessions_std",
+    "importance": 0.024
+  },
+  {
+    "feature": "frequency",
+    "importance": 0.0164
+  },
+  {
+    "feature": "support_tickets_total",
+    "importance": 0.0153
+  },
+  {
+    "feature": "engagement",
+    "importance": 0.015
+  },
+  {
+    "feature": "usage_volatility",
+    "importance": 0.0128
+  },
+  {
+    "feature": "payment_health",
+    "importance": 0.0123
+  },
+  {
+    "feature": "sessions_last_month",
+    "importance": 0.0121
+  },
+  {
+    "feature": "active_seats",
+    "importance": 0.0069
+  },
+  {
+    "feature": "support_tickets_recent",
+    "importance": 0.0055
+  },
+  {
+    "feature": "feature_usage_trend",
+    "importance": 0.0052
+  },
+  {
+    "feature": "activity_trend",
+    "importance": 0.0044
+  },
+  {
+    "feature": "monetary_value",
+    "importance": 0.0039
+  },
+  {
+    "feature": "mrr",
+    "importance": 0.0038
+  },
+  {
+    "feature": "customer_value",
+    "importance": 0.0038
+  },
+  {
+    "feature": "company_size",
+    "importance": 0.0035
+  },
+  {
+    "feature": "avg_mrr",
+    "importance": 0.0034
+  },
+  {
+    "feature": "monthly_price",
+    "importance": 0.003
+  },
+  {
+    "feature": "arr",
+    "importance": 0.003
+  },
+  {
+    "feature": "recency",
+    "importance": 0.0027
+  },
+  {
+    "feature": "payment_failures_total",
+    "importance": 0.0019
+  },
+  {
+    "feature": "subscription_health",
+    "importance": 0.0011
+  },
+  {
+    "feature": "country_GB",
+    "importance": 0.0007
+  },
+  {
+    "feature": "country_CA",
+    "importance": 0.0005
+  },
+  {
+    "feature": "plan_type_Starter",
+    "importance": 0.0005
+  },
+  {
+    "feature": "payment_failures_recent",
+    "importance": 0.0004
+  },
+  {
+    "feature": "country_FR",
+    "importance": 0.0004
+  },
+  {
+    "feature": "country_IN",
+    "importance": 0.0004
+  },
+  {
+    "feature": "country_US",
+    "importance": 0.0004
+  },
+  {
+    "feature": "plan_type_Pro",
+    "importance": 0.0004
+  },
+  {
+    "feature": "country_BR",
+    "importance": 0.0003
+  },
+  {
+    "feature": "country_NL",
+    "importance": 0.0002
+  },
+  {
+    "feature": "country_SG",
+    "importance": 0.0002
+  },
+  {
+    "feature": "country_DE",
+    "importance": 0.0001
+  },
+  {
+    "feature": "plan_type_Enterprise",
+    "importance": 0.0
+  }
+]

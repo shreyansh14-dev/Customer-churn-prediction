@@ -1,0 +1,45 @@
+{
+  "model_version": "v1.0.0-churniq_banking",
+  "architecture": "lightgbm",
+  "training_timestamp": "2026-10-06T20:00:27.008938",
+  "training_duration_seconds": 0.541,
+  "inference_latency_ms": 0.025,
+  "dataset_rows": 6276,
+  "train_rows": 5020,
+  "test_rows": 1256,
+  "feature_count": 22,
+  "target_column": "churn_target",
+  "selected_threshold": 0.57,
+  "test_metrics": {
+    "roc_auc": 0.9235,
+    "pr_auc": 0.8259,
+    "brier_score": 0.0792,
+    "log_loss": 0.2744,
+    "precision": 0.7965,
+    "recall": 0.705,
+    "f1": 0.748,
+    "f2": 0.7216,
+    "specificity": 0.9528,
+    "balanced_accuracy": 0.8289,
+    "confusion_matrix": {
+      "tn": 948,
+      "fp": 47,
+      "fn": 77,
+      "tp": 184
+    }
+  },
+  "candidate_comparison": {
+    "logistic_regression": {
+      "val_auc": 0.8806
+    },
+    "random_forest": {
+      "val_auc": 0.9275
+    },
+    "lightgbm": {
+      "val_auc": 0.9278
+    },
+    "xgboost": {
+      "val_auc": 0.9275
+    }
+  }
+}

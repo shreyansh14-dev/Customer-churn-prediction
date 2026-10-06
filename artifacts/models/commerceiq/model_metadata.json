@@ -1,0 +1,45 @@
+{
+  "model_version": "v1.0.0-commerceiq",
+  "architecture": "logistic_regression",
+  "training_timestamp": "2026-10-06T20:01:11.278131",
+  "training_duration_seconds": 0.129,
+  "inference_latency_ms": 0.0,
+  "dataset_rows": 64522,
+  "train_rows": 51617,
+  "test_rows": 12905,
+  "feature_count": 11,
+  "target_column": "purchase_target",
+  "selected_threshold": 0.07,
+  "test_metrics": {
+    "roc_auc": 0.7277,
+    "pr_auc": 0.0571,
+    "brier_score": 0.0091,
+    "log_loss": 0.0499,
+    "precision": 0.225,
+    "recall": 0.0744,
+    "f1": 0.1118,
+    "f2": 0.0859,
+    "specificity": 0.9976,
+    "balanced_accuracy": 0.536,
+    "confusion_matrix": {
+      "tn": 12753,
+      "fp": 31,
+      "fn": 112,
+      "tp": 9
+    }
+  },
+  "candidate_comparison": {
+    "logistic_regression": {
+      "val_auc": 0.7276
+    },
+    "random_forest": {
+      "val_auc": 0.6666
+    },
+    "lightgbm": {
+      "val_auc": 0.6518
+    },
+    "xgboost": {
+      "val_auc": 0.6403
+    }
+  }
+}
