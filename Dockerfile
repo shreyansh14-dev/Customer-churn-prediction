@@ -30,9 +30,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy application backend, artifacts, ml code, and configurations
+# Copy application backend, artifacts, and configurations
 COPY backend/ ./backend/
-COPY ml/ ./ml/
 COPY configs/ ./configs/
 COPY artifacts/ ./artifacts/
 COPY data/ ./data/
