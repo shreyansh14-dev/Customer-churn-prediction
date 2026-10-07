@@ -171,6 +171,8 @@ export const BusinessAnalysisWizard: React.FC<BusinessAnalysisWizardProps> = ({
 
   // Step 7: Model Routing State
   const [selectedModel, setSelectedModel] = useState<string>('churniq_saas');
+  const [selectedAlgorithm, setSelectedAlgorithm] = useState<string>('LightGBM Classifier');
+  const [isDragging, setIsDragging] = useState<boolean>(false);
   const [routingReason, setRoutingReason] = useState<string>(
     'B2B SaaS with subscription recurring billing, usage telemetry, and contract renewals detected.'
   );
@@ -262,10 +264,8 @@ export const BusinessAnalysisWizard: React.FC<BusinessAnalysisWizardProps> = ({
     }
   };
 
-  // Handle actual file upload
-  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files || e.target.files.length === 0) return;
-    const file = e.target.files[0];
+  // Handle actual file processing (called by both file input and drag-and-drop)
+  const processUploadedFile = async (file: File) => {
     setUploadedFile(file);
     setLoading(true);
     setErrorMsg(null);
@@ -306,7 +306,16 @@ export const BusinessAnalysisWizard: React.FC<BusinessAnalysisWizardProps> = ({
         if (res.mapping?.recommended_model) {
           setSelectedModel(res.mapping.recommended_model);
         }
-        // ✅ FIX: Store ALL uploaded rows (up to 2000), not just the 5-row preview
+        if (res.detected_domain) {
+          setProfile((prev: any) => ({
+            ...prev,
+            industry: res.detected_domain === 'telecom' ? 'Telecom & ISP' :
+                      res.detected_domain === 'banking' ? 'Banking & Financial' :
+                      res.detected_domain === 'credit' ? 'Credit & Lending' :
+                      res.detected_domain === 'commerce' ? 'E-Commerce Retail' : prev.industry
+          }));
+        }
+        // ✅ Store ALL uploaded rows (up to 2000), not just the 5-row preview
         const uploadedRows = res.rows && res.rows.length > 0 ? res.rows : (res.validation.preview || []);
         setCustomersData(uploadedRows);
         setCurrentStep(4);
@@ -322,6 +331,11 @@ export const BusinessAnalysisWizard: React.FC<BusinessAnalysisWizardProps> = ({
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files || e.target.files.length === 0) return;
+    processUploadedFile(e.target.files[0]);
   };
 
   // Run Real Prediction Batch using the UPLOADED dataset (not synthetic data)
@@ -1183,10 +1197,29 @@ export const BusinessAnalysisWizard: React.FC<BusinessAnalysisWizardProps> = ({
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Drag & Drop Upload Card */}
-            <div className="p-8 rounded-2xl border-2 border-dashed border-slate-300 hover:border-blue-500 bg-slate-50/60 transition-all text-center flex flex-col items-center justify-center space-y-3">
-              <UploadCloud className="w-12 h-12 text-slate-400" />
+            <div
+              onDragOver={(e) => { e.preventDefault(); e.stopPropagation(); setIsDragging(true); }}
+              onDragEnter={(e) => { e.preventDefault(); e.stopPropagation(); setIsDragging(true); }}
+              onDragLeave={(e) => { e.preventDefault(); e.stopPropagation(); setIsDragging(false); }}
+              onDrop={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                setIsDragging(false);
+                if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+                  processUploadedFile(e.dataTransfer.files[0]);
+                }
+              }}
+              className={`p-8 rounded-2xl border-2 border-dashed transition-all text-center flex flex-col items-center justify-center space-y-3 cursor-pointer ${
+                isDragging
+                  ? 'border-blue-600 bg-blue-50/70 scale-[1.02] shadow-lg'
+                  : 'border-slate-300 hover:border-blue-500 bg-slate-50/60'
+              }`}
+            >
+              <UploadCloud className={`w-12 h-12 transition-all ${isDragging ? 'text-blue-600 scale-110' : 'text-slate-400'}`} />
               <div>
-                <p className="text-xs font-bold text-[#1f1f1f]">Drag & drop customer data file here</p>
+                <p className="text-xs font-bold text-[#1f1f1f]">
+                  {isDragging ? 'Drop customer data file to start analysis!' : 'Drag & drop customer data file here'}
+                </p>
                 <p className="text-[11px] text-slate-500 mt-1">Supports CSV, CSV.GZ, and Apache Parquet</p>
               </div>
               <label className="cursor-pointer px-5 py-2 rounded-xl bg-white border border-slate-300 hover:border-slate-400 text-slate-800 font-bold text-xs shadow-sm transition-all">
@@ -1195,6 +1228,7 @@ export const BusinessAnalysisWizard: React.FC<BusinessAnalysisWizardProps> = ({
                   type="file"
                   accept=".csv,.csv.gz,.parquet"
                   onChange={handleFileUpload}
+                  onClick={(e) => { (e.target as HTMLInputElement).value = ''; }}
                   className="hidden"
                 />
               </label>
@@ -1524,34 +1558,37 @@ export const BusinessAnalysisWizard: React.FC<BusinessAnalysisWizardProps> = ({
                   { model: 'Random Forest Ensemble', auc: '0.8483', pr: '0.7447', f1: '0.760', rec: '78.5%', prec: '73.6%', brier: '0.114', selected: false },
                   { model: 'Extra Trees Classifier', auc: '0.8340', pr: '0.7310', f1: '0.745', rec: '77.0%', prec: '72.2%', brier: '0.121', selected: false },
                   { model: 'Logistic Regression (ElasticNet)', auc: '0.8120', pr: '0.7105', f1: '0.722', rec: '74.1%', prec: '70.5%', brier: '0.138', selected: false }
-                ].map((row, idx) => (
-                  <tr key={idx} className={row.selected ? 'bg-blue-50/50 font-bold' : 'hover:bg-slate-50/70'}>
-                    <td className="p-3.5 font-sans flex items-center gap-2">
-                      <span className="text-slate-900">{row.model}</span>
-                      {row.selected && (
-                        <span className="px-2 py-0.5 rounded bg-blue-600 text-white text-[10px] font-bold">
-                          Selected Champion ★
-                        </span>
-                      )}
-                    </td>
-                    <td className="p-3.5 text-blue-700">{row.auc}</td>
-                    <td className="p-3.5 text-slate-800">{row.pr}</td>
-                    <td className="p-3.5 text-slate-800">{row.f1}</td>
-                    <td className="p-3.5 text-slate-800">{row.rec}</td>
-                    <td className="p-3.5 text-slate-800">{row.prec}</td>
-                    <td className="p-3.5 text-slate-800">{row.brier}</td>
-                    <td className="p-3.5 text-right font-sans">
-                      <button
-                        onClick={() => setSelectedModel(row.model)}
-                        className={`px-3 py-1 rounded-lg text-[10px] font-bold cursor-pointer ${
-                          row.selected ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
-                        }`}
-                      >
-                        {row.selected ? 'Active Champion' : 'Select Model'}
-                      </button>
-                    </td>
-                  </tr>
-                ))}
+                ].map((row, idx) => {
+                  const isCurrentAlg = selectedAlgorithm === row.model;
+                  return (
+                    <tr key={idx} className={isCurrentAlg ? 'bg-blue-50/50 font-bold' : 'hover:bg-slate-50/70'}>
+                      <td className="p-3.5 font-sans flex items-center gap-2">
+                        <span className="text-slate-900">{row.model}</span>
+                        {isCurrentAlg && (
+                          <span className="px-2 py-0.5 rounded bg-blue-600 text-white text-[10px] font-bold">
+                            Selected Champion ★
+                          </span>
+                        )}
+                      </td>
+                      <td className="p-3.5 text-blue-700">{row.auc}</td>
+                      <td className="p-3.5 text-slate-800">{row.pr}</td>
+                      <td className="p-3.5 text-slate-800">{row.f1}</td>
+                      <td className="p-3.5 text-slate-800">{row.rec}</td>
+                      <td className="p-3.5 text-slate-800">{row.prec}</td>
+                      <td className="p-3.5 text-slate-800">{row.brier}</td>
+                      <td className="p-3.5 text-right font-sans">
+                        <button
+                          onClick={() => setSelectedAlgorithm(row.model)}
+                          className={`px-3 py-1 rounded-lg text-[10px] font-bold cursor-pointer ${
+                            isCurrentAlg ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                          }`}
+                        >
+                          {isCurrentAlg ? 'Active Champion' : 'Select Algorithm'}
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>
@@ -1650,6 +1687,19 @@ export const BusinessAnalysisWizard: React.FC<BusinessAnalysisWizardProps> = ({
             </div>
 
             <div className="flex items-center gap-3 flex-wrap">
+              <button
+                onClick={() => {
+                  setCustomersData([]);
+                  setUploadedFile(null);
+                  setPredictionResults(null);
+                  setHealthResults(null);
+                  setCurrentStep(3);
+                }}
+                className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md transition-all cursor-pointer hover:scale-105 active:scale-95"
+              >
+                <UploadCloud className="w-4 h-4 text-white" />
+                <span>Upload Another Dataset</span>
+              </button>
               <button
                 onClick={handleExportCSV}
                 className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white border border-slate-300 hover:border-slate-400 text-slate-800 font-semibold text-xs shadow-sm cursor-pointer"

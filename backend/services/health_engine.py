@@ -6,6 +6,7 @@ and strategic executive directives dynamically from scored datasets.
 
 from typing import List, Dict, Any, Optional
 import numpy as np
+import pandas as pd
 
 def detect_dataset_domain(raw_customers: List[Dict[str, Any]]) -> str:
     if not raw_customers:
@@ -17,7 +18,7 @@ def detect_dataset_domain(raw_customers: List[Dict[str, Any]]) -> str:
     if any(k in keys_lower for k in ["phoneservice", "internetservice", "monthlycharges", "contract", "paperlessbilling", "has_fiber"]):
         return "telecom"
     # Check Banking
-    if any(k in keys_lower for k in ["creditscore", "numofproducts", "hascrcard", "isactivemember", "estimatedsalary"]):
+    if any(k in keys_lower for k in ["creditscore", "numofproducts", "hascrcard", "isactivemember", "estimatedsalary", "exited"]):
         return "banking"
     # Check Credit Risk
     if any(k in keys_lower for k in ["amt_credit", "amt_income_total", "name_contract_type", "days_employed"]):
@@ -27,6 +28,84 @@ def detect_dataset_domain(raw_customers: List[Dict[str, Any]]) -> str:
         return "commerce"
     # Default
     return "saas"
+
+def analyze_dataset_drivers(raw_customers: List[Dict[str, Any]], scored_customers: List[Dict[str, Any]]) -> Dict[str, Any]:
+    """
+    Computes statistical feature correlations and category churn disparities directly from the uploaded dataset.
+    """
+    if not raw_customers or not scored_customers:
+        return {"top_risk_feature": None, "top_protective_feature": None, "best_category": None}
+
+    try:
+        df = pd.DataFrame(raw_customers)
+        probs = [c.get("probability", 0.0) for c in scored_customers]
+        df["_prob"] = probs[:len(df)]
+        df["_is_risky"] = [1 if c.get("risk_level") in ["HIGH", "CRITICAL"] else 0 for c in scored_customers[:len(df)]]
+
+        # 1. Numeric Feature Correlations with Churn Probability
+        numeric_cols = [c for c in df.select_dtypes(include=[np.number]).columns if not c.startswith("_") and c not in ["customer_id", "CustomerID", "id"]]
+        correlations = {}
+        for c in numeric_cols:
+            if df[c].std() > 0 and len(df[c].dropna()) > 3:
+                corr = df[c].corr(df["_prob"])
+                if not np.isnan(corr):
+                    correlations[c] = float(corr)
+
+        top_risk_feat = None
+        top_risk_corr = 0.0
+        top_prot_feat = None
+        top_prot_corr = 0.0
+
+        if correlations:
+            sorted_corr = sorted(correlations.items(), key=lambda x: x[1])
+            # Negative correlation = protective feature (higher value -> lower churn)
+            if sorted_corr[0][1] < -0.05:
+                top_prot_feat = sorted_corr[0][0]
+                top_prot_corr = sorted_corr[0][1]
+            # Positive correlation = risk feature (higher value -> higher churn)
+            if sorted_corr[-1][1] > 0.05:
+                top_risk_feat = sorted_corr[-1][0]
+                top_risk_corr = sorted_corr[-1][1]
+
+        # 2. Categorical Column Disparity
+        cat_cols = [c for c in df.columns if df[c].dtype == object and not c.startswith("_") and c not in ["customer_id", "CustomerID", "id", "name", "email"]]
+        best_cat_info = None
+        max_disparity = 0.0
+
+        for col in cat_cols:
+            counts = df[col].value_counts()
+            valid_cats = counts[counts >= max(2, int(len(df) * 0.05))].index
+            if len(valid_cats) >= 2:
+                rates = df[df[col].isin(valid_cats)].groupby(col)["_is_risky"].mean()
+                if len(rates) >= 2:
+                    high_cat = rates.idxmax()
+                    low_cat = rates.idxmin()
+                    high_rate = rates[high_cat]
+                    low_rate = rates[low_cat]
+                    disp = high_rate - low_rate
+                    if disp > max_disparity:
+                        max_disparity = disp
+                        ratio = round((high_rate / max(0.01, low_rate)), 1)
+                        best_cat_info = {
+                            "column": col,
+                            "high_segment": str(high_cat),
+                            "high_rate": round(high_rate * 100, 1),
+                            "low_segment": str(low_cat),
+                            "low_rate": round(low_rate * 100, 1),
+                            "disparity_pp": round(disp * 100, 1),
+                            "ratio": ratio,
+                            "high_count": int(df[df[col] == high_cat].shape[0])
+                        }
+
+        return {
+            "top_risk_feature": top_risk_feat,
+            "top_risk_corr": round(top_risk_corr, 2),
+            "top_protective_feature": top_prot_feat,
+            "top_protective_corr": round(top_prot_corr, 2),
+            "best_category": best_cat_info
+        }
+    except Exception as e:
+        return {"top_risk_feature": None, "top_protective_feature": None, "best_category": None}
 
 def compute_business_health(scored_customers: List[Dict[str, Any]], raw_customers: List[Dict[str, Any]] = None, profile: Dict[str, Any] = None) -> Dict[str, Any]:
     if not scored_customers:
@@ -55,12 +134,12 @@ def compute_business_health(scored_customers: List[Dict[str, Any]], raw_customer
     med_count = sum(1 for c in scored_customers if c.get("risk_level") == "MEDIUM")
     low_count = sum(1 for c in scored_customers if c.get("risk_level") == "LOW")
     high_critical_count = crit_count + high_count
-    high_risk_pct = round((high_critical_count / total) * 100, 2)
+    high_risk_pct = round((high_critical_count / total) * 100, 1)
 
     # Detect domain
     domain = detect_dataset_domain(raw_customers or scored_customers)
 
-    # Calculate Revenue Exposure
+    # Calculate Revenue Exposure dynamically from actual dataset columns
     revenue_exposure = 0.0
     total_revenue = 0.0
     for idx, sc in enumerate(scored_customers):
@@ -83,6 +162,8 @@ def compute_business_health(scored_customers: List[Dict[str, Any]], raw_customer
                 val = float(c_raw["customer_value"])
             elif "monetary_value" in c_raw and float(c_raw.get("monetary_value", 0) or 0) > 0:
                 val = float(c_raw["monetary_value"])
+            elif "EstimatedSalary" in c_raw and float(c_raw.get("EstimatedSalary", 0) or 0) > 0:
+                val = float(c_raw["EstimatedSalary"]) * 0.1
             else:
                 val = 120.0
         else:
@@ -117,12 +198,17 @@ def compute_business_health(scored_customers: List[Dict[str, Any]], raw_customer
     )
     status_label = "Healthy" if business_health >= 80.0 else ("Moderate Risk" if business_health >= 60.0 else "High Risk")
 
-    # Plan / Contract Distribution from dataset
+    # Plan / Contract / Segment Distribution from dataset
     plan_counts = {}
     plan_risky = {}
     for idx, sc in enumerate(scored_customers):
         c_raw = raw_customers[idx] if (raw_customers and idx < len(raw_customers)) else {}
-        p_name = c_raw.get("Contract") or c_raw.get("contract") or c_raw.get("Plan") or c_raw.get("plan") or c_raw.get("subscription_tier") or c_raw.get("Segment")
+        p_name = (
+            c_raw.get("Contract") or c_raw.get("contract") or 
+            c_raw.get("Plan") or c_raw.get("plan") or 
+            c_raw.get("subscription_tier") or c_raw.get("Geography") or c_raw.get("geography") or
+            c_raw.get("Segment") or c_raw.get("segment")
+        )
         if not p_name:
             if float(c_raw.get("is_month_to_month", 0) or 0) == 1.0:
                 p_name = "Month-to-month"
@@ -131,7 +217,7 @@ def compute_business_health(scored_customers: List[Dict[str, Any]], raw_customer
             elif float(c_raw.get("is_two_year", 0) or 0) == 1.0:
                 p_name = "Two year"
             else:
-                p_name = "Standard Plan"
+                p_name = "Standard Cohort"
         plan_counts[p_name] = plan_counts.get(p_name, 0) + 1
         if sc.get("risk_level") in ["HIGH", "CRITICAL"]:
             plan_risky[p_name] = plan_risky.get(p_name, 0) + 1
@@ -147,220 +233,133 @@ def compute_business_health(scored_customers: List[Dict[str, Any]], raw_customer
             "width": f"{min(100, max(15, int(rate * 1.5)))}%"
         })
 
+    # Run Deep Data Drivers Analysis on the uploaded dataset
+    drivers = analyze_dataset_drivers(raw_customers or [], scored_customers)
+    top_risk_feat = drivers.get("top_risk_feature")
+    top_prot_feat = drivers.get("top_protective_feature")
+    best_cat = drivers.get("best_category")
+
     # Generate 5 Dynamic Strategic Insights tailored to the uploaded dataset
     strategic_insights = []
 
-    if domain == "telecom":
-        # Insight 1: Contract Analysis
-        def check_m2m(c):
-            return str(c.get("Contract", "")).lower().startswith("month") or float(c.get("is_month_to_month", 0) or 0) == 1.0
-
-        m2m_total = sum(1 for idx, sc in enumerate(scored_customers) if raw_customers and check_m2m(raw_customers[idx]))
-        m2m_risky = sum(1 for idx, sc in enumerate(scored_customers) if raw_customers and check_m2m(raw_customers[idx]) and sc.get("risk_level") in ["HIGH", "CRITICAL"])
-        m2m_rate = round((m2m_risky / m2m_total * 100), 1) if m2m_total > 0 else 42.7
-
-        long_total = total - m2m_total
-        long_risky = high_critical_count - m2m_risky
-        long_rate = round((long_risky / long_total * 100), 1) if long_total > 0 else 8.5
-        hazard_ratio = round(m2m_rate / max(1.0, long_rate), 1)
-
+    # INSIGHT 1: Primary Categorical or Segment Disparity
+    if best_cat:
+        col_title = best_cat['column'].replace('_', ' ').title()
         strategic_insights.append({
             "code": "01",
-            "badge": f"{hazard_ratio}× Contract Hazard",
+            "badge": f"{best_cat['ratio']}× Segment Hazard",
             "badge_color": "rose",
-            "title": "Month-to-Month Contract Churn Disparity",
-            "description": f"Subscribers on Month-to-month contracts exhibit {m2m_rate}% churn risk across {m2m_total} accounts — {hazard_ratio}× higher than long-term commitments ({long_rate}%). Flexible billing is the #1 structural driver of account loss.",
-            "directive_title": "Contract Transition Incentive Directive:",
-            "directive": "Deploy proactive upgrade campaigns offering a $10/mo credit or speed boost for migrating to 12-month or 24-month terms prior to billing cycle renewal."
-        })
-
-        # Insight 2: Revenue Concentration
-        strategic_insights.append({
-            "code": "02",
-            "badge": f"{fmt_exposure} ARR at Risk",
-            "badge_color": "amber",
-            "title": "High-Value Account Revenue Exposure",
-            "description": f"A total of {high_critical_count} accounts ({high_risk_pct}% of the portfolio) are classified as elevated risk, creating {fmt_exposure} in annualized revenue exposure. High-tier accounts represent 72% of this vulnerability.",
-            "directive_title": "Executive Outreach & VIP Concierge:",
-            "directive": "Assign dedicated customer success managers to the top 20% highest monthly spend accounts flagged at risk to perform tailored bill audits."
-        })
-
-        # Insight 3: Tech Support & Service Bundle Moat
-        no_tech_total = sum(1 for idx, sc in enumerate(scored_customers) if (raw_customers and str(raw_customers[idx].get("TechSupport", "")).lower() == "no"))
-        no_tech_risky = sum(1 for idx, sc in enumerate(scored_customers) if (raw_customers and str(raw_customers[idx].get("TechSupport", "")).lower() == "no" and sc.get("risk_level") in ["HIGH", "CRITICAL"]))
-        no_tech_rate = round((no_tech_risky / no_tech_total * 100), 1) if no_tech_total > 0 else 41.6
-
-        strategic_insights.append({
-            "code": "03",
-            "badge": "2.7× Retention Moat",
-            "badge_color": "emerald",
-            "title": "Technical Support & Security Retention Moat",
-            "description": f"Accounts lacking dedicated TechSupport and Online Security packages experience {no_tech_rate}% churn. Bundling technical assistance directly insulates accounts from competitor switching.",
-            "directive_title": "Complimentary Value-Add Bundle Directive:",
-            "directive": "Target single-service subscribers with a complimentary 90-day TechSupport & Device Protection bundle to increase platform stickiness."
-        })
-
-        # Insight 4: Tenure Hazard & Early-Lifecycle Cliff
-        new_tenure_total = sum(1 for idx, sc in enumerate(scored_customers) if (raw_customers and float(raw_customers[idx].get("tenure", 12) or 12) <= 12))
-        new_tenure_risky = sum(1 for idx, sc in enumerate(scored_customers) if (raw_customers and float(raw_customers[idx].get("tenure", 12) or 12) <= 12 and sc.get("risk_level") in ["HIGH", "CRITICAL"]))
-        new_tenure_rate = round((new_tenure_risky / new_tenure_total * 100), 1) if new_tenure_total > 0 else 47.4
-
-        strategic_insights.append({
-            "code": "04",
-            "badge": f"{new_tenure_rate}% Early Attrition",
-            "badge_color": "purple",
-            "title": "First-Year Account Vulnerability Cliff",
-            "description": f"Customers within their initial 12 months exhibit {new_tenure_rate}% attrition rate across {new_tenure_total} accounts. Accounts that surpass month 24 exhibit over 82% long-term renewal probability.",
-            "directive_title": "Onboarding & Milestone Protection Playbook:",
-            "directive": "Implement automated Day-30 and Day-90 satisfaction checks and proactive network performance confirmations to stabilize early tenure."
-        })
-
-        # Insight 5: Payment Channel Friction
-        strategic_insights.append({
-            "code": "05",
-            "badge": "+31pp Churn Surge",
-            "badge_color": "rose",
-            "title": "Payment Channel & Billing Method Friction",
-            "description": f"Electronic Check and manual paper billing accounts have a significantly higher default risk (+31 percentage points) compared to automated Credit Card and Bank Transfer AutoPay accounts.",
-            "directive_title": "AutoPay Migration Directive:",
-            "directive": "Provide a recurring $5 monthly bill discount for customers who switch from Electronic Check to recurring bank debit or automated card AutoPay."
-        })
-
-    elif domain == "banking":
-        strategic_insights.append({
-            "code": "01",
-            "badge": "3.1× Single-Product Hazard",
-            "badge_color": "rose",
-            "title": "Single-Product Portfolio Vulnerability",
-            "description": f"Account holders with only 1 active banking product account for over 68% of churn risk. Multi-product holders sustain an 89.4% retention rate.",
-            "directive_title": "Cross-Product Relationship Deepening:",
-            "directive": "Automate personalized cross-sell campaigns offering promotional savings rates or zero-fee credit cards to single-product depositors."
-        })
-        strategic_insights.append({
-            "code": "02",
-            "badge": f"{fmt_exposure} Deposit Outflow Risk",
-            "badge_color": "amber",
-            "title": "High Balance Deposit Flight Risk",
-            "description": f"Elevated-risk depositors represent {fmt_exposure} in potential balance runoff across {high_critical_count} customer relationships.",
-            "directive_title": "Wealth Advisor High-Touch Retention:",
-            "directive": "Route depositors with balances over $50k to dedicated private wealth advisors for preemptive portfolio consultations."
-        })
-        strategic_insights.append({
-            "code": "03",
-            "badge": "44% Dormancy Trigger",
-            "badge_color": "purple",
-            "title": "Inactive Member Attrition Velocity",
-            "description": "Non-active account holders exhibit 44% higher attrition velocity within 90 days of stopping digital transactions.",
-            "directive_title": "Mobile App Re-engagement Activation:",
-            "directive": "Trigger automated app notifications and direct-deposit cashback incentives to reignite monthly account activity."
-        })
-        strategic_insights.append({
-            "code": "04",
-            "badge": "Age 45–60 Vulnerability",
-            "badge_color": "indigo",
-            "title": "Mid-Career Demographics Attrition",
-            "description": "Mid-career customers with high credit scores show elevated rate sensitivity, actively moving funds to competitive digital banks.",
-            "directive_title": "High-Yield Relationship Tiers:",
-            "directive": "Implement relationship tiering that automatically matches competitive certificate of deposit (CD) rates for loyal depositors."
-        })
-        strategic_insights.append({
-            "code": "05",
-            "badge": f"{crit_count} Critical Accounts",
-            "badge_color": "rose",
-            "title": "Immediate Critical Account Intervention",
-            "description": f"{crit_count} accounts are in the CRITICAL segment (probability > 75%). Rapid outreach is projected to preserve up to ${revenue_exposure * 0.4:,.0f}.",
-            "directive_title": "Immediate Call Center Queueing:",
-            "directive": "Populate relationship manager call queues with critical risk accounts within 24 hours of model scoring."
-        })
-
-    else:
-        # SaaS / E-commerce / General
-        strategic_insights.append({
-            "code": "01",
-            "badge": "2.8× Usage Velocity Hazard",
-            "badge_color": "rose",
-            "title": "Early Onboarding & Activity Cliff",
-            "description": f"Accounts in early adoption exhibit {round(avg_prob * 100, 1)}% mean attrition probability. Inactivity in the initial 60 days directly drives 58% of account cancellations.",
-            "directive_title": "Milestone-Driven CSM Onboarding:",
-            "directive": "Deploy automated milestone audits and setup verification calls within 14 days of account provisioning."
-        })
-        strategic_insights.append({
-            "code": "02",
-            "badge": f"{fmt_exposure} ARR at Risk",
-            "badge_color": "amber",
-            "title": "Subscription ARR Exposure Concentration",
-            "description": f"A total of {high_critical_count} accounts represent {fmt_exposure} in annualized recurring revenue sitting above the risk threshold.",
-            "directive_title": "Executive Sponsor Check-In:",
-            "directive": "Schedule executive alignment reviews with the top 15 highest ARR accounts flagged as at-risk."
-        })
-        strategic_insights.append({
-            "code": "03",
-            "badge": "94.2% Moat Density",
-            "badge_color": "emerald",
-            "title": "Multi-Feature Retention Moat",
-            "description": "Accounts utilizing 3 or more platform integrations maintain a 94.2% renewal rate, compared to single-feature users.",
-            "directive_title": "Integration Cross-Pollination Prompts:",
-            "directive": "Introduce in-app recommendations for API webhooks and automated reporting exports to deepen platform dependence."
-        })
-        strategic_insights.append({
-            "code": "04",
-            "badge": "42% Involuntary Churn",
-            "badge_color": "purple",
-            "title": "Payment & Involuntary Dunning Friction",
-            "description": "Over 40% of customer cancellations are operational, triggered by expired cards and soft payment gateway declines.",
-            "directive_title": "Smart Dunning & Account Updater:",
-            "directive": "Configure automatic card updater tools and intelligent retry intervals aligned with corporate purchasing cycles."
-        })
-        strategic_insights.append({
-            "code": "05",
-            "badge": f"{crit_count} Urgent Accounts",
-            "badge_color": "rose",
-            "title": "High Urgency Critical Cohort",
-            "description": f"{crit_count} accounts require immediate mitigation to avoid imminent churn within the next billing period.",
-            "directive_title": "Automated Retention Playbook Dispatch:",
-            "directive": "Trigger specialized retention offers and dedicated technical support resources for immediate resolution."
-        })
-
-    # Prioritized Domain-Aware Actions
-    recommended_actions = []
-    if high_risk_pct > 25.0:
-        recommended_actions.append({
-            "priority": "HIGH",
-            "category": "Retention Risk",
-            "title": f"Elevated Risk Cohort ({high_risk_pct}% at risk)",
-            "description": f"Calculated revenue exposure of {fmt_exposure} across {high_critical_count} accounts. Initiate targeted retention playbooks immediately.",
-            "impact": "High Revenue Preservation"
-        })
-    if domain == "telecom":
-        recommended_actions.append({
-            "priority": "HIGH",
-            "category": "Contract Strategy",
-            "title": "Month-to-Month Contract Conversion Program",
-            "description": "Transition flexible monthly accounts into discounted 1-year contracts with complimentary speed upgrades.",
-            "impact": "Up to 3.8× Churn Rate Reduction"
-        })
-        recommended_actions.append({
-            "priority": "MEDIUM",
-            "category": "Service Bundling",
-            "title": "TechSupport & OnlineSecurity Bundling Promotion",
-            "description": "Enroll single-service subscribers into a 60-day complimentary TechSupport & Device Protection bundle.",
-            "impact": "2.7× Retention Moat Creation"
-        })
-    elif domain == "banking":
-        recommended_actions.append({
-            "priority": "HIGH",
-            "category": "Product Expansion",
-            "title": "Multi-Product Cross-Sell Campaign",
-            "description": "Incentivize single-product customers with zero-fee credit cards and direct-deposit relationship rates.",
-            "impact": "3× Lower Account Runoff"
+            "title": f"{col_title} Disparity: {best_cat['high_segment']} vs {best_cat['low_segment']}",
+            "description": f"Accounts in the '{best_cat['high_segment']}' segment exhibit {best_cat['high_rate']}% churn risk across {best_cat['high_count']} records — {best_cat['ratio']}× higher than '{best_cat['low_segment']}' accounts ({best_cat['low_rate']}%). This represents a {best_cat['disparity_pp']} percentage point risk differential.",
+            "directive_title": f"{col_title} Alignment Directive:",
+            "directive": f"Deploy targeted retention incentives and tailored support campaigns specifically optimized for the '{best_cat['high_segment']}' subgroup."
         })
     else:
+        strategic_insights.append({
+            "code": "01",
+            "badge": f"{round(avg_prob * 100, 1)}% Mean Attrition",
+            "badge_color": "rose",
+            "title": "Baseline Population Churn Velocity",
+            "description": f"Across {total} uploaded customer records, average predicted churn probability stands at {round(avg_prob * 100, 1)}%. High-risk accounts represent {high_risk_pct}% of the overall base.",
+            "directive_title": "Proactive Intervention Directive:",
+            "directive": "Segment accounts into risk tiers and trigger preemptive engagement sequences before the next renewal cycle."
+        })
+
+    # INSIGHT 2: Revenue Concentration & Value Exposure
+    strategic_insights.append({
+        "code": "02",
+        "badge": f"{fmt_exposure} Value at Risk",
+        "badge_color": "amber",
+        "title": "Portfolio Value Concentration Exposure",
+        "description": f"A total of {high_critical_count} accounts ({high_risk_pct}% of the uploaded cohort) sit at elevated risk, representing {fmt_exposure} in projected financial exposure across the portfolio.",
+        "directive_title": "High-Value Account Protection Directive:",
+        "directive": f"Prioritize account reviews and executive outreach for the top revenue-generating accounts currently identified above the churn threshold."
+    })
+
+    # INSIGHT 3: Primary Risk Driver (Statistical Correlation)
+    if top_risk_feat:
+        feat_clean = top_risk_feat.replace('_', ' ').title()
+        strategic_insights.append({
+            "code": "03",
+            "badge": f"Top Risk: {feat_clean}",
+            "badge_color": "rose",
+            "title": f"Primary Hazard Sensitivity: {feat_clean}",
+            "description": f"Statistical correlation analysis identifies '{top_risk_feat}' as the strongest positive driver of attrition (r = +{drivers['top_risk_corr']}). Higher values in this metric directly correlate with increased cancellation propensity.",
+            "directive_title": f"{feat_clean} Friction Mitigation:",
+            "directive": f"Audit customer touchpoints related to {feat_clean} and establish early-warning threshold alerts to address negative friction before cancellation."
+        })
+    else:
+        strategic_insights.append({
+            "code": "03",
+            "badge": f"{high_risk_pct}% Volatility",
+            "badge_color": "emerald",
+            "title": "Behavioral Engagement Volatility",
+            "description": "Multi-factor interaction signals indicate that inconsistent usage and sudden drops in platform activity are strong early precursors to account attrition.",
+            "directive_title": "Activity Re-Engagement Playbook:",
+            "directive": "Automate feature spotlight emails and workflow check-ins whenever account activity drops below trailing 30-day medians."
+        })
+
+    # INSIGHT 4: Primary Protective Factor (Retention Anchor)
+    if top_prot_feat:
+        prot_clean = top_prot_feat.replace('_', ' ').title()
+        strategic_insights.append({
+            "code": "04",
+            "badge": f"Anchor: {prot_clean}",
+            "badge_color": "emerald",
+            "title": f"Core Retention Anchor: {prot_clean}",
+            "description": f"Analysis identifies '{top_prot_feat}' as the strongest protective feature in the dataset (r = {drivers['top_protective_corr']}). Accounts with elevated scores in this dimension demonstrate significantly higher lifetime retention.",
+            "directive_title": f"{prot_clean} Reinforcement Directive:",
+            "directive": f"Structure onboarding milestones to guide new accounts toward achieving healthy {prot_clean} thresholds within their first 60 days."
+        })
+    else:
+        strategic_insights.append({
+            "code": "04",
+            "badge": f"{100 - high_risk_pct}% Secure Base",
+            "badge_color": "purple",
+            "title": "Core Healthy Relationship Moat",
+            "description": f"{total - high_critical_count} accounts ({100 - high_risk_pct}% of the cohort) maintain low-to-medium risk profiles with high renewal consistency.",
+            "directive_title": "Expansion & Upsell Playbook:",
+            "directive": "Target highly stable accounts for multi-year contract renewals, annual commitments, and product upgrades."
+        })
+
+    # INSIGHT 5: Immediate Critical Cohort Response
+    strategic_insights.append({
+        "code": "05",
+        "badge": f"{crit_count} Critical Accounts",
+        "badge_color": "indigo",
+        "title": "Immediate Critical Account Intervention Queue",
+        "description": f"{crit_count} accounts ({round((crit_count / total) * 100, 1)}% of the dataset) have crossed the critical attrition threshold (probability >= 75%). Immediate intervention is required to prevent imminent account loss.",
+        "directive_title": "Rapid Response Protocol:",
+        "directive": "Route these critical accounts immediately to senior customer success and retention managers with authorized discount/concession workflows."
+    })
+
+    # Recommended Actions
+    recommended_actions = [
+        {
+            "priority": "HIGH",
+            "category": "High-Risk Mitigation",
+            "title": f"Protect {high_critical_count} At-Risk Accounts ({fmt_exposure} Exposure)",
+            "description": f"Execute prioritized outreach for the top at-risk cohort. Preventing churn in this group protects up to {fmt_exposure} in projected value.",
+            "impact": "High Value Preservation"
+        }
+    ]
+
+    if best_cat:
+        recommended_actions.append({
+            "priority": "HIGH",
+            "category": "Segment Strategy",
+            "title": f"Segment Campaign for '{best_cat['high_segment']}' ({best_cat['high_rate']}% Attrition)",
+            "description": f"Tailor retention playbooks specifically for {best_cat['high_segment']} accounts to close the {best_cat['disparity_pp']}pp risk gap with {best_cat['low_segment']}.",
+            "impact": f"Up to {best_cat['ratio']}× Risk Reduction"
+        })
+
+    if top_risk_feat:
         recommended_actions.append({
             "priority": "MEDIUM",
-            "category": "Billing Operations",
-            "title": "Smart Dunning & Pre-Expiration Alerts",
-            "description": "Configure pre-expiration card notices and retry cadence 3 days prior to renewal dates.",
-            "impact": "Involuntary Churn Reduction"
+            "category": "Driver Mitigation",
+            "title": f"Address {top_risk_feat.replace('_', ' ').title()} Friction",
+            "description": f"Establish automated notifications when {top_risk_feat} metrics cross danger thresholds.",
+            "impact": "Early Attrition Prevention"
         })
 
     definitions = {

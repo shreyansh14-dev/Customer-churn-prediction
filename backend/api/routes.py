@@ -266,10 +266,13 @@ def predict_batch(payload: BatchPredictionRequest):
     detected_domain = detect_domain_from_columns(list(df_in.columns))
     auto_model = get_model_for_domain(detected_domain)
     
-    # If model is not explicitly provided or is default, use detected model
-    model_name = payload.model_name if (payload.model_name and payload.model_name != "churniq_saas") else auto_model
-    if payload.model_name and payload.model_name in registry.models:
+    # If model is not explicitly valid in registry or is default churniq_saas on non-saas data, use detected domain model
+    if payload.model_name in registry.models and payload.model_name != "churniq_saas":
         model_name = payload.model_name
+    elif payload.model_name in registry.models and detected_domain == "saas":
+        model_name = payload.model_name
+    else:
+        model_name = auto_model
 
     # Check if required model features are missing from input
     meta_model = registry.get_model(model_name)
@@ -399,7 +402,12 @@ def evaluate_business_health(payload: BatchPredictionRequest):
     df_in = pd.DataFrame(customers)
     detected_domain = detect_domain_from_columns(list(df_in.columns))
     auto_model = get_model_for_domain(detected_domain)
-    model_name = payload.model_name if (payload.model_name and payload.model_name != "churniq_saas") else auto_model
+    if payload.model_name in registry.models and payload.model_name != "churniq_saas":
+        model_name = payload.model_name
+    elif payload.model_name in registry.models and detected_domain == "saas":
+        model_name = payload.model_name
+    else:
+        model_name = auto_model
 
     meta_model = registry.get_model(model_name)
     req_feats = meta_model.get("feature_names", []) if isinstance(meta_model, dict) else []
