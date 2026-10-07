@@ -1,1 +1,46 @@
-[]
+[
+  {
+    "feature": "intent_score",
+    "importance": 0.4851
+  },
+  {
+    "feature": "max_price_viewed",
+    "importance": 0.3744
+  },
+  {
+    "feature": "hist_purchase_count",
+    "importance": 0.2989
+  },
+  {
+    "feature": "avg_price_viewed",
+    "importance": 0.2439
+  },
+  {
+    "feature": "unique_sessions",
+    "importance": 0.1445
+  },
+  {
+    "feature": "events_per_session",
+    "importance": 0.105
+  },
+  {
+    "feature": "total_spend",
+    "importance": 0.07
+  },
+  {
+    "feature": "cart_count",
+    "importance": 0.0514
+  },
+  {
+    "feature": "cart_to_view_ratio",
+    "importance": 0.045
+  },
+  {
+    "feature": "total_events",
+    "importance": 0.0113
+  },
+  {
+    "feature": "view_count",
+    "importance": 0.0102
+  }
+]

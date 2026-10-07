@@ -1,1 +1,110 @@
-[]
+[
+  {
+    "feature": "charges_per_tenure",
+    "importance": 1.0721
+  },
+  {
+    "feature": "tenure",
+    "importance": 0.8285
+  },
+  {
+    "feature": "arr",
+    "importance": 0.6025
+  },
+  {
+    "feature": "MonthlyCharges",
+    "importance": 0.6025
+  },
+  {
+    "feature": "mrr",
+    "importance": 0.6025
+  },
+  {
+    "feature": "is_two_year",
+    "importance": 0.405
+  },
+  {
+    "feature": "is_month_to_month",
+    "importance": 0.37
+  },
+  {
+    "feature": "has_phone",
+    "importance": 0.3014
+  },
+  {
+    "feature": "TotalCharges",
+    "importance": 0.2221
+  },
+  {
+    "feature": "customer_value",
+    "importance": 0.2221
+  },
+  {
+    "feature": "has_online_security",
+    "importance": 0.2112
+  },
+  {
+    "feature": "is_paperless",
+    "importance": 0.1775
+  },
+  {
+    "feature": "total_services",
+    "importance": 0.1391
+  },
+  {
+    "feature": "has_dependents",
+    "importance": 0.1072
+  },
+  {
+    "feature": "has_online_backup",
+    "importance": 0.1055
+  },
+  {
+    "feature": "has_fiber",
+    "importance": 0.1044
+  },
+  {
+    "feature": "support_burden",
+    "importance": 0.0911
+  },
+  {
+    "feature": "has_tech_support",
+    "importance": 0.0911
+  },
+  {
+    "feature": "payment_health",
+    "importance": 0.066
+  },
+  {
+    "feature": "is_auto_pay",
+    "importance": 0.066
+  },
+  {
+    "feature": "is_senior",
+    "importance": 0.0593
+  },
+  {
+    "feature": "has_streaming_movies",
+    "importance": 0.0478
+  },
+  {
+    "feature": "has_device_protection",
+    "importance": 0.0398
+  },
+  {
+    "feature": "has_dsl",
+    "importance": 0.0342
+  },
+  {
+    "feature": "has_streaming_tv",
+    "importance": 0.0326
+  },
+  {
+    "feature": "has_partner",
+    "importance": 0.0323
+  },
+  {
+    "feature": "is_one_year",
+    "importance": 0.0265
+  }
+]

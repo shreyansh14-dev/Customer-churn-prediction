@@ -2,6 +2,7 @@
 MLVerse FastAPI REST API Endpoints
 """
 
+import io
 import os
 import json
 import uuid
@@ -26,6 +27,9 @@ from backend.services.scoring_engine import score_customer
 from backend.services.health_engine import compute_business_health
 from backend.services.upload_service import (
     detect_column_mappings, validate_uploaded_data, get_demo_customers
+)
+from backend.services.feature_engineering import (
+    detect_domain_from_columns, engineer_features, get_model_for_domain
 )
 
 # Create tables
@@ -164,25 +168,57 @@ def detect_mapping(payload: ColumnMappingRequest):
 @router.post("/upload")
 async def upload_dataset(file: UploadFile = File(...)):
     contents = await file.read()
+    lower_name = (file.filename or "").lower()
     try:
-        if file.filename.endswith(".parquet"):
+        if lower_name.endswith(".parquet"):
             df = pd.read_parquet(io.BytesIO(contents))
-        elif file.filename.endswith((".csv", ".txt")):
+        elif lower_name.endswith((".csv", ".txt", ".csv.gz")):
             df = pd.read_csv(io.BytesIO(contents))
-        elif file.filename.endswith((".xlsx", ".xls")):
+        elif lower_name.endswith((".xlsx", ".xls")):
             df = pd.read_excel(io.BytesIO(contents))
         else:
-            raise HTTPException(status_code=400, detail="Unsupported format. Upload CSV, Parquet, or XLSX.")
+            raise HTTPException(status_code=400, detail="Unsupported format. Upload CSV, Excel (.xlsx/.xls), or Parquet.")
     except Exception as e:
         raise HTTPException(status_code=400, detail=f"Failed to parse file: {str(e)}")
 
     validation = validate_uploaded_data(df)
     mapping = detect_column_mappings(list(df.columns))
-    
+
+    # Auto-detect domain and map model
+    detected_domain = detect_domain_from_columns(list(df.columns))
+    recommended_model = get_model_for_domain(detected_domain)
+    mapping["detected_domain"] = detected_domain.title()
+    mapping["recommended_model"] = recommended_model
+
+    # Run feature engineering pipeline on the raw uploaded dataframe
+    engineered_df, _, _ = engineer_features(df, domain=detected_domain)
+
+    # Drop ground-truth target columns so the model scores fresh
+    TARGET_COLS = ["churn_target", "churned", "Exited", "TARGET", "churn", "Churn", "churn_flag"]
+    df_scored = df.copy()
+    for tc in TARGET_COLS:
+        if tc in df_scored.columns:
+            df_scored.drop(columns=[tc], inplace=True)
+
+    # Merge engineered features with raw columns (so frontend can show both raw data & feed model features)
+    for col in engineered_df.columns:
+        if col not in df_scored.columns:
+            df_scored[col] = engineered_df[col]
+
+    # Fill NaN with 0 / empty string for JSON serialisation
+    df_scored = df_scored.fillna(0)
+
+    # Return up to 2 000 rows so the frontend can run real batch scoring
+    MAX_ROWS = 2000
+    all_rows = df_scored.head(MAX_ROWS).to_dict(orient="records")
+
     return {
         "filename": file.filename,
         "validation": validation,
-        "mapping": mapping
+        "mapping": mapping,
+        "detected_domain": detected_domain,
+        "recommended_model": recommended_model,
+        "rows": all_rows
     }
 
 @router.get("/demo-data")
@@ -211,11 +247,47 @@ def predict_credit_risk(payload: SinglePredictionRequest):
 
 @router.post("/predict-batch", response_model=BatchPredictionResponse)
 def predict_batch(payload: BatchPredictionRequest):
-    model_name = payload.model_name or "churniq_saas"
-    scored_list = []
+    customers = payload.customers or []
+    if not customers:
+        return {
+            "model_name": payload.model_name or "churniq_saas",
+            "model_version": "v1.0.0",
+            "total_processed": 0,
+            "high_risk_count": 0,
+            "medium_risk_count": 0,
+            "low_risk_count": 0,
+            "critical_risk_count": 0,
+            "avg_probability": 0.0,
+            "revenue_exposure": 0.0,
+            "results": []
+        }
+
+    df_in = pd.DataFrame(customers)
+    detected_domain = detect_domain_from_columns(list(df_in.columns))
+    auto_model = get_model_for_domain(detected_domain)
     
-    for idx, c in enumerate(payload.customers):
-        c_id = c.get("customer_id", c.get("CustomerID", c.get("user_id", f"CUST-{idx+1:04d}")))
+    # If model is not explicitly provided or is default, use detected model
+    model_name = payload.model_name if (payload.model_name and payload.model_name != "churniq_saas") else auto_model
+    if payload.model_name and payload.model_name in registry.models:
+        model_name = payload.model_name
+
+    # Check if required model features are missing from input
+    meta_model = registry.get_model(model_name)
+    req_feats = meta_model.get("feature_names", []) if isinstance(meta_model, dict) else []
+    missing_feats = [f for f in req_feats if f not in df_in.columns]
+
+    if len(missing_feats) > len(req_feats) * 0.3:
+        # Run feature engineering
+        feat_df, dom, m_name = engineer_features(df_in, domain=detected_domain)
+        for c in feat_df.columns:
+            df_in[c] = feat_df[c]
+        records_to_score = df_in.to_dict(orient="records")
+    else:
+        records_to_score = customers
+
+    scored_list = []
+    for idx, c in enumerate(records_to_score):
+        c_id = c.get("_id", c.get("customer_id", c.get("customerID", c.get("CustomerID", c.get("user_id", f"CUST-{idx+1:04d}")))))
         scored = score_customer(model_name, c, customer_id=str(c_id))
         scored_list.append(scored)
 
@@ -226,12 +298,29 @@ def predict_batch(payload: BatchPredictionRequest):
     crit_count = sum(1 for s in scored_list if s["risk_level"] == "CRITICAL")
     avg_p = float(np.mean([s["probability"] for s in scored_list])) if total > 0 else 0.0
 
-    # Calculate revenue exposure
-    exposure = sum(
-        float(payload.customers[i].get("arr", payload.customers[i].get("customer_value", payload.customers[i].get("mrr", 120.0))))
-        for i, s in enumerate(scored_list)
-        if s["risk_level"] in ["HIGH", "CRITICAL"]
-    )
+    # Calculate real domain-aware revenue exposure
+    exposure = 0.0
+    for i, s in enumerate(scored_list):
+        if s["risk_level"] in ["HIGH", "CRITICAL"]:
+            c = records_to_score[i]
+            val = 0.0
+            if "arr" in c and float(c.get("arr", 0) or 0) > 0:
+                val = float(c["arr"])
+            elif ("MonthlyCharges" in c or "monthly_charges" in c) and float(c.get("MonthlyCharges", c.get("monthly_charges", 0)) or 0) > 0:
+                val = float(c.get("MonthlyCharges", c.get("monthly_charges", 0.0)) or 0.0) * 12.0
+            elif ("mrr" in c or "monthly_revenue" in c) and float(c.get("mrr", c.get("monthly_revenue", 0)) or 0) > 0:
+                val = float(c.get("mrr", c.get("monthly_revenue", 0.0)) or 0.0) * 12.0
+            elif "TotalCharges" in c and float(c.get("TotalCharges", 0) or 0) > 0:
+                val = float(c["TotalCharges"])
+            elif "Balance" in c and float(c.get("Balance", 0) or 0) > 0:
+                val = float(c["Balance"])
+            elif "customer_value" in c and float(c.get("customer_value", 0) or 0) > 0:
+                val = float(c["customer_value"])
+            elif "monetary_value" in c and float(c.get("monetary_value", 0) or 0) > 0:
+                val = float(c["monetary_value"])
+            else:
+                val = 120.0
+            exposure += val
 
     meta = registry.metadata.get(model_name, {})
     return {
@@ -303,12 +392,32 @@ def segment_customers(payload: SegmentRequest):
 
 @router.post("/business-health", response_model=BusinessHealthResponse)
 def evaluate_business_health(payload: BatchPredictionRequest):
-    model_name = payload.model_name or "churniq_saas"
+    customers = payload.customers or []
+    if not customers:
+        return compute_business_health([], [])
+
+    df_in = pd.DataFrame(customers)
+    detected_domain = detect_domain_from_columns(list(df_in.columns))
+    auto_model = get_model_for_domain(detected_domain)
+    model_name = payload.model_name if (payload.model_name and payload.model_name != "churniq_saas") else auto_model
+
+    meta_model = registry.get_model(model_name)
+    req_feats = meta_model.get("feature_names", []) if isinstance(meta_model, dict) else []
+    missing_feats = [f for f in req_feats if f not in df_in.columns]
+
+    if len(missing_feats) > len(req_feats) * 0.3:
+        feat_df, dom, m_name = engineer_features(df_in, domain=detected_domain)
+        for c in feat_df.columns:
+            df_in[c] = feat_df[c]
+        records = df_in.to_dict(orient="records")
+    else:
+        records = customers
+
     scored_list = []
-    for idx, c in enumerate(payload.customers):
-        c_id = c.get("customer_id", c.get("user_id", f"CUST-{idx+1:04d}"))
+    for idx, c in enumerate(records):
+        c_id = c.get("_id", c.get("customer_id", c.get("CustomerID", c.get("user_id", f"CUST-{idx+1:04d}"))))
         scored = score_customer(model_name, c, customer_id=str(c_id))
         scored_list.append(scored)
 
-    health = compute_business_health(scored_list, payload.customers)
+    health = compute_business_health(scored_list, records)
     return health

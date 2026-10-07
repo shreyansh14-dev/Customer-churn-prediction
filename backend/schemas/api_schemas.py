@@ -71,9 +71,9 @@ class BatchPredictionResponse(BaseModel):
     revenue_exposure: float
     results: List[PredictionResponse]
 
-# Health & Recommendations
 class BusinessHealthResponse(BaseModel):
     business_health_score: float
+    status_label: Optional[str] = "Healthy"
     retention_health: float
     engagement_health: float
     revenue_stability: float
@@ -82,6 +82,8 @@ class BusinessHealthResponse(BaseModel):
     revenue_exposure: float
     high_risk_percentage: float
     recommended_actions: List[Dict[str, Any]]
+    strategic_insights: Optional[List[Dict[str, Any]]] = None
+    plan_distribution: Optional[List[Dict[str, Any]]] = None
     score_definitions: Dict[str, str]
 
 # RFM Segmentation
